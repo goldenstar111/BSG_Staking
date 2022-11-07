@@ -1,8 +1,5 @@
 import { useContext, useState } from "react";
 import { DashboardHeader, Sidebar } from "../../components"
-import NewPaymentModal from "../../components/modal/NewPaymentModal";
-import ReceiveTokenModal from "../../components/modal/ReceiveTokenModal";
-import RequestMoneyModal from "../../components/modal/RequestModal";
 import { ThemeContext } from "../../utils/theme/ThemeContext"
 
 const DashboardLayout = ({ children }) => {

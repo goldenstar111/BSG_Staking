@@ -1,11 +1,7 @@
 import { useState } from 'react';
-import MenuBar from '../assets/MenuBar';
 import images from '../constants/images';
 import { ThemeContext } from "../utils/theme/ThemeContext";
 import { Link } from "react-router-dom";
-import NewPaymentModal from './modal/NewPaymentModal';
-import ReceiveTokenModal from './modal/ReceiveTokenModal';
-import RequestMoneyModal from './modal/RequestModal';
 
 const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling, children }) => {
 

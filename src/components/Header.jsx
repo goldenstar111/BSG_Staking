@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import MenuBar from '../assets/MenuBar';
 import images from '../constants/images';
 import { ThemeContext } from "../utils/theme/ThemeContext";
 

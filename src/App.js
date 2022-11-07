@@ -8,12 +8,12 @@ import "react-month-picker/css/month-picker.css";
 import LandPages from './pages';
 import './css/custom.css';
 import DashboardLayout from './pages/Dashboard/DashboardLayout';
-import HomePage from './pages/Dashboard/HomePage';
-import Growth from './pages/Dashboard/Growth';
-import Deposit from './pages/Dashboard/Deposit';
-import Withdraw from './pages/Dashboard/Withdraw';
-import History from './pages/Dashboard/History';
-import Team from './pages/Dashboard/Team';
+import HomePage from './pages/HomePage';
+import Growth from './pages/Growth';
+import Deposit from './pages/Deposit';
+import Withdraw from './pages/Withdraw';
+import History from './pages/History';
+import Team from './pages/Team';
 import ErrorPage from './pages/Error';
 
 const App = () => {
