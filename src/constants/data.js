@@ -4,8 +4,8 @@ export const infoData = [
     {
         id: 1,
         img: images.ImageArt,
-        title: 'Steller Assets & NFTs',
-        info: "Trade your Steller assets anytime & anywhere Choose how you want to sell your NFTS and we'll help you on that & get 24/7 support from us"
+        title: 'BSG',
+        info: "Trade your BSG assets anytime & anywhere Choose how you want to sell your NFTS and we'll help you on that & get 24/7 support from us"
     },
     {
         id: 2,
@@ -17,7 +17,7 @@ export const infoData = [
         id: 3,
         img: images.ShieldOk,
         title: 'Data Security',
-        info: "Security of user information and funds is our first  first priority. StellerLedger is the only decentralized exchange without scam or duplicate tokens"
+        info: "Security of user information and funds is our first  first priority. BSG is the only decentralized exchange without scam or duplicate tokens"
     },
 ]
 export const NFTInfoData = [
@@ -37,7 +37,7 @@ export const NFTInfoData = [
         id: 3,
         img: images.ImageArt,
         title: 'Add Your NFTs',
-        info: "Security of user information and funds is our first  first priority. StellerLedger is the only decentralized exchange without scam or duplicate tokens"
+        info: "Security of user information and funds is our first  first priority. BSG is the only decentralized exchange without scam or duplicate tokens"
     },
 ]
 export const NFTItems = [
@@ -53,7 +53,7 @@ export const appRelatedInfo = [
         id: 1,
         img: images.Team,
         title: '200,000 + Users',
-        info: "StellerLedger is a popular choice both for beginners and pros. Easily send, receive and trade your crypto & maintain a true network of crypto domain"
+        info: "BSG is a popular choice both for beginners and pros. Easily send, receive and trade your crypto & maintain a true network of crypto domain"
     },
     {
         id: 2,

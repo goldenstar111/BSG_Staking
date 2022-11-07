@@ -6,7 +6,7 @@ const IntroAbout = () => {
   return (
     <section className='p-6 pb-14 lg:px-16 text-center dark:bg-[#200A4C] dark:text-gray-200'>
       <p className='text-sm py-4'>Awesome Services</p>
-      <h2 className='text-3xl'>Why Steller Ledger ?</h2>
+      <h2 className='text-3xl'>Why BSG International ?</h2>
       <div>
         <div className='flex flex-wrap items-center justify-center gap-8 mt-6'>
           {

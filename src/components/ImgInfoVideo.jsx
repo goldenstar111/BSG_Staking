@@ -11,8 +11,10 @@ const ImgInfoVideo = () => {
         <div className='flex flex-wrap flex-col md:flex-row items-center justify-center xl:justify-between py-8 lg:border-b border-gray-500'>
           <div className='w-full lg:w-[500px] space-y-4 '>
             <p className='text-sm'>Decentralized Payment Network</p>
-            <h2 className='text-3xl'>StellerLedgar is the <br /> Safest Network</h2>
-            <p className='text-xs w-full lg:w-[480px] leading-5 dark:text-slate-400 pb-4 '>StellarLedger is a ledger where all assets are held in a very secure wallet, which allows the user to control their funds at all time. Steller is an open-source protocol for exchanging money, its network validates transactions and allows irreversible and cryptographically secure payments.</p>
+            <h2 className='text-3xl'>BSG is the <br /> best staking game</h2>
+            <p className='text-xs w-full lg:w-[480px] leading-5 dark:text-slate-400 pb-4 '>BSG is a game where all assets are held in a very secure wallet,
+              which allows the user to control their funds at all time. BSG is an open-source protocol for exchanging money,
+              its network validates transactions and allows irreversible and cryptographically secure payments.</p>
             <button className='hidden lg:block px-4 py-3 bg-[#9047c4] text-white rounded-lg text-sm'>Learn More</button>
           </div>
           <div className='px-8 w-full lg:w-[500px]'>

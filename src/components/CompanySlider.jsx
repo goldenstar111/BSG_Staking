@@ -20,8 +20,8 @@ const CompanySlider = ({ themeToggling }) => {
   // console.log('companySlider --------', themeToggling);
   return (
     <section className='p-2 pb-8 lg:px-16 text-center dark:bg-[#2F1B58] dark:text-gray-200'>
-      <p className='text-sm py-4'>Stellar Partners</p>
-      <h2 className='text-3xl'>Built on Stellar</h2>
+      <p className='text-sm py-4'>BSG Partners</p>
+      <h2 className='text-3xl'>Built on Polygon</h2>
       <div>
         <Swiper
           className="mySwiper product-slider"

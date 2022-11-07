@@ -8,10 +8,10 @@ const Footer = () => {
       <div className='border-t border-gray-500 flex justify-between flex-wrap gap-4 pt-10'>
         <div className='flex-auto space-y-4 max-w-fit '>
           <h2 className='text-2xl lg:text-3xl font-bold tracking-wider text-[#545454] dark:text-white'>
-            <span className='text-[#B322F1]'>S</span> L E D G E R
+            <span className='text-[#B322F1]'>BLockchain</span> Split Game
           </h2>
           <p className='w-full lg:w-96 font-light dark:text-slate-400'>
-            StellerLedger is operated by an independent commercial entity unaffiliated with the Steller development foundation.
+            BSG is operated by an independent commercial entity unaffiliated with the Polygon development foundation.
           </p>
           <div className='pt-4 lg:pt-12 space-x-4 flex pb-12'>
             <i className='iconStyling fab fa-facebook'></i>
