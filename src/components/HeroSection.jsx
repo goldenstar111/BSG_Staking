@@ -10,12 +10,6 @@ const HeroSection = ({ themeToggling, menuToggling, setMenuToggling }) => {
         <img src={themeToggling ? images.topLeft_1 : images.topLeft_1_w} alt="" className='w-full' />
       </div>
 
-      {/* 🟡 Circle 2 🟡*/}
-      {/* <div className={`w-80 h-80 bg-gradient-to-l ${themeToggling
-        ? 'from-[#2B1867] to-[#BF36E6] opacity-10 rotate-[210deg]'
-        : 'from-slate-200 rotate-[30deg]'} 
-        rounded-full absolute top-40 left-0`}></div> */}
-
       <div className={`hidden lg:block absolute top-20 left-10 w-[340px] -z-0`}>
         <img src={themeToggling ? images.topLeft_2 : images.topLeft_2_w} alt="" className='w-full' />
       </div>
@@ -49,8 +43,14 @@ const HeroSection = ({ themeToggling, menuToggling, setMenuToggling }) => {
         }
       </div>
 
-      <h1 className='relative font-bold text-[28px] pt-4 md:text-4xl lg:text-5xl lg:leading-[60px]'>The Most Secure Platform <br /> On Steller</h1>
-      <p className='relative pt-8 w-full lg:w-[650px] mx-auto '>StellarLedger is the only Steller wallet where you can buy or create NFTs and be protected from scam or duplicate tokens</p>
+      <h1 className='relative font-bold text-[28px] pt-4 md:text-4xl lg:text-5xl lg:leading-[60px]'>
+        World’s First Ecosystem that
+        Scaling Decentralized Applications
+      </h1>
+      <p className='relative pt-8 w-full lg:w-[650px] mx-auto '>
+        Revolutionary Smart Contract technology provides decentralized market participants
+        with the ability to directly engage in personal and business transactions. The GSC, Verified by Polygon Blockchain.
+      </p>
       <div className='relative flex items-center justify-center py-10 gap-4 text-slate-200'>
         <div className='flex items-center gap-4 px-4 py-2 rounded-lg bg-gradient-to-r from-[#BF36E6] to-blue-800 cursor-pointer hover:shadow-xl duration-200 '>
           <img src={images.appleLogo} alt="" className='w-5' />
