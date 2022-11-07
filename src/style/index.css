@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Poppins';
+}
+
+.iconStyling {
+    /* @apply w-12 h-12 bg-gray-200 rounded-full text-black text-2xl grid place-items-center cursor-pointer hover: bg-gray-400 duration-200; */
+}
+
+.default-background {
+    background-color: #2B1867;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.org-bg-white {
+    background-color: white;
+    color: black;
+}
+
+.btn-cus-signin {
+    background-color: #8522CC;
+    border-color: transparent;
+    outline: none;
+}
+
+.bg_gradient {
+    background: linear-gradient(90deg, rgba(87, 126, 205, 0.56) 0.1%, rgba(81, 27, 134, 0.56) 100%);
+}
+
+.bg_gradient_1 {
+    background: linear-gradient(90deg, rgba(87, 126, 205, 0.46) 0.1%, rgba(81, 27, 134, 0.46) 100%);
+}
+
+.gradient_danager {
+    background: rgb(236, 56, 104);
+    background: linear-gradient(90deg, rgba(236, 56, 104, 0) 0%, rgba(236, 56, 104, 0.28) 100%);
+}
+
+.gradient_green {
+    background: rgb(89, 219, 181);
+    background: linear-gradient(90deg, rgba(89, 219, 181, 0) 0%, rgba(89, 219, 181, 0.28) 100%);
+}
+
+.nfttop1_gradient {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 22%, rgba(255, 204, 91, 1) 50%, rgba(255, 255, 255, 0) 84%);
+}
+
+.nfttop2_gradient {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 22%, rgba(189, 189, 189, 1) 50%, rgba(255, 255, 255, 0) 84%);
+}

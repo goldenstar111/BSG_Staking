@@ -1,0 +1,23 @@
+
+export const transctiondata=[
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"received"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"pending"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"sent"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"received"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"received"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:true,status:"received"},
+    {date:"22 th, May 2021",balance:"1,152,837",isIncrease:false,status:"received"},
+]

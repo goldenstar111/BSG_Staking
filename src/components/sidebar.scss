@@ -1,0 +1,296 @@
+.menu {
+    color: #cecece;
+    font-size: 16px;
+    background-repeat: no-repeat;
+    background-position: 2px;
+    background-size: 20px;
+    padding: 5px;
+    padding-left: 40px;
+    margin-bottom: 10px;
+
+    &.home {
+        background-image: url(../assets/svgs/white/home_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/home_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/home_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.receive {
+        background-image: url(../assets/svgs/white/receive_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/receive_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/receive_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.send {
+        background-image: url(../assets/svgs/white/send_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/send_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/send_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.buy {
+        background-image: url(../assets/svgs/white/buy_license_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/buy_license_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/buy_license_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.trade {
+        background-image: url(../assets/svgs/white/trade_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/trade_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/trade_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.transactions {
+        background-image: url(../assets/svgs/white/trans_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/trans_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/trans_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.access {
+        background-image: url(../assets/svgs/white/access_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/access_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/access_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.contacts {
+        background-image: url(../assets/svgs/white/contact_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/contact_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/contact_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.setting {
+        background-image: url(../assets/svgs/white/setting_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/setting_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/setting_icon_d_active.svg);
+            color: #000;
+        }
+    }
+
+    &.logout {
+        background-image: url(../assets/svgs/white/logout_icon_d.svg);
+
+        &:hover {
+            background-image: url(../assets/svgs/white/logout_icon_d_active.svg);
+            color: #000;
+        }
+
+        &.active {
+            background-image: url(../assets/svgs/white/logout_icon_d_active.svg);
+            color: #000;
+        }
+    }
+}
+
+.dark {
+    .menu {
+        color: #96a0c2;
+
+        &.home {
+            background-image: url(../assets/svgs/dark/home_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/home_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/home_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.receive {
+            background-image: url(../assets/svgs/dark/receive_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/receive_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/receive_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.send {
+            background-image: url(../assets/svgs/dark/send_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/send_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/send_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.buy {
+            background-image: url(../assets/svgs/dark/buy_license_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/buy_license_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/buy_license_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.trade {
+            background-image: url(../assets/svgs/dark/trade_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/trade_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/trade_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.transactions {
+            background-image: url(../assets/svgs/dark/trans_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/trans_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/trans_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.access {
+            background-image: url(../assets/svgs/dark/access_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/access_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/access_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.contacts {
+            background-image: url(../assets/svgs/dark/contact_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/contact_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/contact_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.setting {
+            background-image: url(../assets/svgs/dark/setting_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/setting_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/setting_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+
+        &.logout {
+            background-image: url(../assets/svgs/dark/logout_icon_d.svg);
+
+            &:hover {
+                background-image: url(../assets/svgs/dark/logout_icon_d_active.svg);
+                color: #fff;
+            }
+
+            &.active {
+                background-image: url(../assets/svgs/dark/logout_icon_d_active.svg);
+                color: #fff;
+            }
+        }
+    }
+}
