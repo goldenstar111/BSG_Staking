@@ -2,7 +2,6 @@ import { useEffect, useState, useContext, createContext } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeContext, AuthContext } from './utils/theme/ThemeContext';
 
-
 import "react-multi-carousel/lib/styles.css";
 import "react-month-picker/css/month-picker.css";
 import LandPages from './pages';

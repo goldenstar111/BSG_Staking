@@ -19,7 +19,7 @@ const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMen
                         </div>
 
                         <nav className='hidden space-x-6 lg:flex items-center pl-4'>
-                            <Link to="/">Account 0x6E8903fAD5298aFA3E595702c616459A73Bc7e1C</Link>
+                            <Link to="/">Account 0x6E89...7e1C</Link>
                         </nav>
                     </div>
 
