@@ -8,19 +8,9 @@ import "react-month-picker/css/month-picker.css";
 import LandPages from './pages';
 import './css/custom.css';
 import DashboardLayout from './pages/Dashboard/DashboardLayout';
-import CryptoTokenInfoPage from './pages/Dashboard/CryptoTokenInfoPage';
-import ReceivePage from './pages/Dashboard/Receive';
 import HomePage from './pages/Dashboard/HomePage';
-import SendPage from './pages/Dashboard/SendPage';
-import BuyLicensePage from './pages/Dashboard/BuyLicensePage';
-import TradePage from './pages/Dashboard/TradePage';
-import TransPage from './pages/Dashboard/TransPage';
-import AccessHistoryPage from './pages/Dashboard/AccessHistoryPage';
-import ContactsPage from './pages/Dashboard/ContactsPage';
-import SettingPage from './pages/Dashboard/SettingPage';
-import CreateToken from './pages/Dashboard/CreateTokenPage';
+import Growth from './pages/Dashboard/Growth';
 import ErrorPage from './pages/Error';
-import StellerLedgerMarket from './pages/Dashboard/TradePage/extraTrade';
 
 const App = () => {
   const [theme, setTheme] = useState(true);
@@ -58,38 +48,8 @@ const App = () => {
             <Route exact path="/home" element={<DashboardLayout>
               <HomePage></HomePage>
             </DashboardLayout>} />
-            <Route exact path="/crypto-token-info" element={<DashboardLayout>
-              <CryptoTokenInfoPage></CryptoTokenInfoPage>
-            </DashboardLayout>} />
-            <Route exact path="/receive" element={<DashboardLayout>
-              <ReceivePage></ReceivePage>
-            </DashboardLayout>} />
-            <Route exact path="/send" element={<DashboardLayout>
-              <SendPage></SendPage>
-            </DashboardLayout>} />
-            <Route exact path="/buy-license" element={<DashboardLayout>
-              <BuyLicensePage></BuyLicensePage>
-            </DashboardLayout>} />
-            <Route exact path="/trade" element={<DashboardLayout>
-              <TradePage></TradePage>
-            </DashboardLayout>} />
-            <Route exact path="/transactions" element={<DashboardLayout>
-              <TransPage></TransPage>
-            </DashboardLayout>} />
-            <Route exact path="/access-history" element={<DashboardLayout>
-              <AccessHistoryPage></AccessHistoryPage>
-            </DashboardLayout>} />
-            <Route exact path="/contacts" element={<DashboardLayout>
-              <ContactsPage></ContactsPage>
-            </DashboardLayout>} />
-            <Route exact path="/setting" element={<DashboardLayout>
-              <SettingPage></SettingPage>
-            </DashboardLayout>} />
-            <Route exact path="/createToken" element={<DashboardLayout>
-              <CreateToken></CreateToken>
-            </DashboardLayout>} />
-            <Route exact path="/market" element={<DashboardLayout>
-              <StellerLedgerMarket></StellerLedgerMarket>
+            <Route exact path="/growth" element={<DashboardLayout>
+              <Growth></Growth>
             </DashboardLayout>} />
           </Routes>
         </BrowserRouter>

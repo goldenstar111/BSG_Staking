@@ -36,23 +36,7 @@ const Header = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling
 
           {/* 🟨🟨🟨 UI For ==> Theme Toggling */}
           <div className='flex items-center gap-4 ml-auto mr-9 xs:mr-3'>
-            <div className='bg-gray-300 rounded-2xl w-14 h-8 relative p-1 cursor-pointer dark:bg-[#4D398A]'
-              onClick={toggleTheme}>
-              <i className={`fas ${isToggle ? 'fa-sun right-1 rotate-[360deg] text-white bg-gray-400' : 'fa-moon bg-black text-white'} rounded-full px-1 text-base absolute transform ease-out duration-1000`}>
-              </i>
-            </div>
-
-            <div className='block lg:hidden dark:brightness-200 w-4 mr-1 z-50'
-              onClick={() => setMenuToggling(pre => !pre)}
-            >
-              {
-                !menuToggling
-                  ? !isToggle
-                    ? <MenuBar color='#fff' />
-                    : <MenuBar color='#000' />
-                  : <i className="fa-solid fa-xmark pl-1 text-2xl"></i>
-              }
-            </div>
+            
           </div>
 
           <Link to={"/home"} className="">Connect</Link>

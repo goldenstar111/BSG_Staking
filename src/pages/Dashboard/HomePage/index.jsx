@@ -1,88 +1,124 @@
 import { Link } from 'react-router-dom';
 import React, { useContext, useState } from "react";
 import { DashboardImageWith } from "../../../components";
-import images from "../../../constants/images";
-import whiteEllipse from '../../../assets/svgs/white/ellipse.svg';
-import darkEllipse from '../../../assets/svgs/dark/ellipse.svg';
-import { ThemeContext } from "../../../utils/theme/ThemeContext";
-import DatePicker from "react-datepicker";
-import { CryptoTypeBtn } from "../../../components";
-import { receiveData, walletdata, coinChartData } from "./data";
-import MonthPicker from "../../../components/MMonthPicker";
-import CoinCharts from "../../../components/CoinCharts";
-import WalletBalance from "../../../components/WalletBalance";
-import ZoomableChart from '../../../components/zoomableChart';
 
 const HomePage = () => {
-    const { isToggle, toggleTheme } = useContext(ThemeContext);
-    const [accountSummaryDate, setAccountSummaryDate] = useState(new Date());
-    const { accountData } = useState([
-        { title: "This Week", qty: "$3,312,00", pnl: 5.15 },
-        { title: "This Month", qty: "$3,312,00", pnl: -3.12 },
-        { title: "XLM Price", qty: "$110,312,00", pnl: 5.15 }
-    ])
-    const [wdata, setWdata] = useState(walletdata);
-    const [coinData] = useState(receiveData);
-    const [view_calendar1, setView1] = useState(false);
-    const [view_calendar2, setView2] = useState(false);
-    const [view_calendar3, setView3] = useState(false);
 
     return (
         <main className="gap-5 bg-white dark:bg-[#1C203B] p-3" id="home-page">
             <div className="mt-3 mb-3">
                 <DashboardImageWith />
             </div>
-            <div className="flex text-black dark:text-white justify-between py-[10px] sm:flex-row md:flex-row xs:flex-col ">
-                <h3 className='sm:text-sm xs:text-xs'>Account Summary</h3>
-                <div className=" flex justify-end items-center">
-                    <label className="text-gray-400 pr-[5px] inline sm:text-xs p-1 xs:text-xs">Select Date</label>
-                    <div className="inline text-black dark:text-white lg:pr-[10px] xl:pr-[10px] 2xl:pr-[10px] 3xl:pr-[10px] sm:pr-1 xs:pr-1 md:pr-[10px]">
-                        <DatePicker selected={accountSummaryDate} className="bg-transparent datepicker sm:text-xs xs:text-xs text-end border-b w-[70px]" onChange={(date) => setAccountSummaryDate(date)} />
-                    </div>
-                    {/* <img src={isToggle ? whiteEllipse : darkEllipse} width={"2%"} /> */}
+            <div className='p-4 bg-gray-100 dark:bg-gray-700 rounded-md'>
+                <a href='https://polygonscan.com/address/0xFDc94C07A6aF83eb98AD6d0452B7e80540b7C507'
+                    target={"_blank"}
+                    className="text-sky-400 py-1"
+                >
+                    <i className="fa-solid fa-location-dot"></i>
+                    <span className='px-2'>Contract address: 0xFDc9...C507</span>
+                </a>
+                <p className='py-1'>
+                    <i className="fa-sharp fa-solid fa-clock"></i>
+                    <span className='px-2'>Platform Running time: ...</span>
+                </p>
+                <p className='py-1'>
+                    <i className="fa-solid fa-recycle"></i>
+                    <span className='px-2'>Income: more than 15 Day Per Cycle. 15%</span>
+                </p>
+                <p className='py-1'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    <span className='px-2'>Deposit time: ...</span>
+                </p>
+            </div>
+
+            <div className='grid grid-cols-4 gap-2 py-2'>
+                <div className='d-flex border border-sky-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-user text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Contract Buyer</span>
+                        <span>0</span>
+                    </p>
+                </div>
+                <div className='d-flex border border-green-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-users text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>My Team</span>
+                        <span>0</span>
+                    </p>
+                </div>
+                <div className='d-flex border border-fuchsia-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-medal text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Manager Pool</span>
+                        <span>$ 0.00</span>
+                    </p>
+                </div>
+                <div className='d-flex border border-sky-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-cloud text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Global Pool</span>
+                        <span>$ 0.00</span>
+                    </p>
+                </div>
+                <div className='d-flex border border-pink-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-user-nurse text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Manager</span>
+                        <span>0</span>
+                    </p>
+                </div>
+                <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-user-doctor text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Global Co-Ordinator</span>
+                        <span>0</span>
+                    </p>
                 </div>
             </div>
-            <ul role="list" className="grid lg:grid-cols-3 gap-2 xs:grid-cols-1 md:grid-cols-2 sm:grid-cols-2">
-                {
-                    coinData.map((item, key) =>
-                        <CryptoTypeBtn key={key} item={item} />
-                    )
-                }
-            </ul>
-            <div className=" flex justify-between mt-5 mb-5  xs:flex-col sm:flex-row md:flex-row">
-                <div className=" flex ">
-                    <h5 className="text-black dark:text-white font-bold sm:text-xs xs:text-xs">Account Balance  <span className='mx-4 font-light text-white'>|</span></h5>
-                    <span className="text-black dark:text-gray-500 sm:text-xs xs:text-xs">&nbsp;Total Balance &nbsp;</span>
-                    <h4 className="text-black dark:text-white sm:text-xs xs:text-xs"> $ 152,837</h4>
+
+            <div className='grid grid-cols-3 gap-2 py-2'>
+                <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
+                    <i class="fa-solid fa-filter-circle-dollar text-4xl"></i>
+                    <p className='px-4'>Deposit</p>
                 </div>
-                <div className=" flex justify-end items-center">
-                    <h5 className="text-gray-400 text-sm mr-1 sm:text-xs xs:text-xs">from&nbsp; </h5>
-                    <MonthPicker />
-                    <h5 className="text-gray-400 text-sm mx-1 sm:text-xs xs:text-xs">&nbsp;  to&nbsp; </h5>
-                    <div className="md:pr-[10px] lg:pr-[10px] xl:pr-[10px] 2xl:pr-[10px] 3xl:pr-[10px] sm:pr-1 xs:pr-1">
-                        <MonthPicker />
-                    </div>
-                    {/* <img src={isToggle ? whiteEllipse : darkEllipse} width={"2%"} /> */}
+                <div className='d-flex border border-pink-400 py-4 px-6 items-center'>
+                    <i class="fa-sharp fa-solid fa-hand-holding-dollar text-4xl"></i>
+                    <p className='px-4'>Withdraw</p>
+                </div>
+                <div className='d-flex border border-sky-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-dollar-sign text-4xl"></i>
+                    <p className='px-4'>Growth Account</p>
                 </div>
             </div>
-            {/* <CoinCharts info={coinChartData}/> */}
-            <ZoomableChart height={350} />
-            <div className=" flex justify-between mt-16 mb-5 lg:flex md:flex-row sm:flex-row xs:flex-col ">
-                <div className=" flex ">
-                    <h5 className="text-black dark:text-white">Wallet Balance</h5>
-                </div>
-                <div className="flex justify-end items-center">
-                    <h5 className="text-gray-400 text-sm"> from&nbsp; </h5>
-                    <MonthPicker />
-                    <h5 className="text-gray-400 text-sm">&nbsp; to&nbsp; </h5>
-                    <div className="md:pr-[10px] lg:pr-[10px] xl:pr-[10px] 2xl:pr-[10px] 3xl:pr-[10px]  sm:pr-1 xs:pr-1 ">
-                        <MonthPicker />
-                    </div>
-                    {/* <img src={isToggle ? whiteEllipse : darkEllipse} width={"2%"} /> */}
-                </div>
+            <div className='p-2 bg-gray-100 dark:bg-gray-700 '>
+                <p>My Rank</p>
+                <p>ID Status</p>
+                <p>Income</p>
+                <p>Matic Balance</p>
+                <p>USDT Balance</p>
+                <p>Referral</p>
+                <p>My address</p>
             </div>
-            <div className="grid  xl:grid-cols-2 gap-3">
-                {wdata && wdata.map((item, key) => { return (<Link to="/crypto-token-info" key={key}><WalletBalance walletData={item} /></Link>) })}
+            <div className='p-2 bg-gray-100 dark:bg-gray-700 '>
+                <p>Lastest Transactions</p>
+            </div>
+
+            <div className='border-t border-sky-400 p-2 mb-4'>
+                <p className='text-sky-400'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    Manager Reward Time Remaining
+                </p>
+                <p>Hours Minutes Seconds</p>
+                <p>00: 00: 00</p>
+            </div>
+
+            <div className='border-t border-pink-400 p-2 mb-4'>
+                <p className='text-sky-400'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    Global Co-Ordinator Pool Reward Time Remaning
+                </p>
+                <p>Hours Minutes Seconds</p>
+                <p>00: 00: 00</p>
             </div>
         </main>
     )

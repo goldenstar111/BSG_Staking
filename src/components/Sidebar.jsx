@@ -2,25 +2,11 @@
 import { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import images from "../constants/images";
-import { ThemeContext } from '../utils/theme/ThemeContext';
-import NewPaymentModal from './modal/NewPaymentModal';
-import ReceiveTokenModal from './modal/ReceiveTokenModal';
-import RequestMoneyModal from './modal/RequestModal';
 import './sidebar.scss';
 
 const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
-    const { isToggle, toggleTheme } = useContext(ThemeContext);
     const location = useLocation();
     const activedPage = location.pathname;
-    const [showNewpayModal, setNewPayModal] = useState(false);
-    const [showRequestModal, setShowRequestModal] = useState(false);
-    const [showRecTokenModal, setShowRecTokenModal] = useState(false);
-
-    const onCloseAllModal = () => {
-        setNewPayModal(false)
-        setShowRecTokenModal(false);
-        setNewPayModal(false);
-    }
 
     return (
         <div id="sidebar">
@@ -52,13 +38,13 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                 </Link>
                                 {/* <Link to="/receive" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => setShowRecTokenModal(true)}>Deposit</div>
+                                <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')}>Deposit</div>
                                 {/* </Link> */}
                                 {/* <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => { setNewPayModal(true) }}>Withdraw</div>
+                                <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')}>Withdraw</div>
                                 {/* </Link> */}
-                                <Link to="/buy-license" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Growth Account</div>
+                                <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
                                 </Link>
                                 <Link to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                     <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
@@ -96,14 +82,14 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     </Link>
                                     {/* <Link onClick={()=>{setMenuToggling(pre=>!pre)}} to="/receive" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
                                     <div className='text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5'>
-                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => { setShowRecTokenModal(true); setMenuToggling(pre => !pre) }}>Deposit</div>
+                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')}>Deposit</div>
                                     </div>
                                     {/* </Link> */}
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => setNewPayModal(true)}>Withdraw</div>
+                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')}>Withdraw</div>
                                     </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/buy-license" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Growth Account</div>
+                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
                                     </Link>
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
@@ -136,13 +122,13 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                         <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                     </Link>
                                     <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => { onCloseAllModal(); setShowRecTokenModal(true) }}>Deposit</div>
+                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')}>Deposit</div>
                                     </Link>
                                     <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => { onCloseAllModal(); setNewPayModal(true) }}>Withdraw</div>
+                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')}>Withdraw</div>
                                     </Link>
-                                    <Link to="/buy-license" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Growth Account</div>
+                                    <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
                                     </Link>
                                     <Link to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
@@ -159,9 +145,6 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                     </div>
                 )
             }
-            <NewPaymentModal show={showNewpayModal} handle={(isShow) => { onCloseAllModal(); setNewPayModal(isShow) }} hideModal={onCloseAllModal} />
-            <ReceiveTokenModal show={showRecTokenModal} handle={(isShow) => { setShowRecTokenModal(isShow) }} handleRequest={setShowRequestModal} hideModal={onCloseAllModal} />
-            <RequestMoneyModal show={showRequestModal} handle={(isShow) => { onCloseAllModal(); setShowRequestModal(isShow) }} hideModal={onCloseAllModal} />
         </div>
     )
 }
