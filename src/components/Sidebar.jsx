@@ -41,46 +41,35 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                 <div className="flex items-center flex-shrink-0 px-8 space-x-4">
                                     <img className="h-12 w-auto" src={images.Logo} alt="logo" />
                                     <div>
-                                        <h1 className='text-xl md:text-lg font-medium tracking-[.1em]'>SLIDEGER</h1>
-                                        <p className='text-[0.6rem] md:text-[0.6rem] '>Decentralized Payment Network</p>
+                                        <h1 className='text-xl md:text-lg font-medium tracking-[.1em]'>GSC</h1>
+                                        <p className='text-[0.6rem] md:text-[0.6rem] '>International</p>
                                     </div>
                                 </div>
                             </Link>
                             <nav className="mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark dark:text-white">
                                 {/* <Link info="/home" classset={"mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark dark: text-white"} url="home_icon_sidebar" value="Home" /> */}
                                 <Link to="/home" className="text-gray-900 dark:text-gray-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Home</div>
+                                    <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                 </Link>
                                 {/* <Link to="/receive" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => setShowRecTokenModal(true)}>Receive</div>
+                                <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => setShowRecTokenModal(true)}>Deposit</div>
                                 {/* </Link> */}
                                 {/* <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => { setNewPayModal(true) }}>Send</div>
+                                <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => { setNewPayModal(true) }}>Withdraw</div>
                                 {/* </Link> */}
                                 <Link to="/buy-license" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Buy Licenses</div>
-                                </Link>
-                                <Link to="/trade" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'trade menu ' + (activedPage == "/trade" ? 'active' : '')}>Trade</div>
-                                </Link>
-                                <Link to="/transactions" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'transactions menu ' + (activedPage == "/transactions" ? 'active' : '')}>Transactions</div>
+                                    <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Growth Account</div>
                                 </Link>
                                 <Link to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Access History</div>
+                                    <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
                                 </Link>
                                 <Link to="/contacts" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>Contacts</div>
+                                    <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>My team</div>
                                 </Link>
                                 <Link to="/setting" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>User Manage</div>
+                                    <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>White Paper</div>
                                 </Link>
                             </nav>
-                        </div>
-                        <div className="flex-shrink-0 flex p-4 pb-7 dark:bg-bg-sidebar-dark dark: text-white">
-                            <a href="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                <div className={'logout menu'}>Log out</div>
-                            </a>
                         </div>
                     </div>
                     <div className="flex-shrink-0 w-14">
@@ -96,47 +85,36 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <div className="flex items-center flex-shrink-0 px-8 space-x-4 text-black dark:text-white">
                                         <img className="h-12 w-auto" src={images.Logo} alt="logo" />
                                         <div>
-                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>SLIDEGER</h1>
-                                            <p className='text-[0.6rem] md:text-[0.6rem] '>Decentralized Payment Network</p>
+                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>GSC</h1>
+                                            <p className='text-[0.6rem] md:text-[0.6rem] '>International</p>
                                         </div>
                                     </div>
                                 </Link>
                                 <nav className="mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark text-white font-light">
                                     <Link to="/home" onClick={() => { setMenuToggling(pre => !pre) }} className="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Home</div>
+                                        <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                     </Link>
                                     {/* <Link onClick={()=>{setMenuToggling(pre=>!pre)}} to="/receive" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
                                     <div className='text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5'>
-                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => { setShowRecTokenModal(true); setMenuToggling(pre => !pre) }}>Receive</div>
+                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => { setShowRecTokenModal(true); setMenuToggling(pre => !pre) }}>Deposit</div>
                                     </div>
                                     {/* </Link> */}
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => setNewPayModal(true)}>Send</div>
+                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => setNewPayModal(true)}>Withdraw</div>
                                     </Link>
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/buy-license" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Buy Licenses</div>
-                                    </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/trade" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'trade menu ' + (activedPage == "/trade" ? 'active' : '')}>Trade</div>
-                                    </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/transactions" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'transactions menu ' + (activedPage == "/transactions" ? 'active' : '')}>Transactions</div>
+                                        <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Growth Account</div>
                                     </Link>
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Access History</div>
+                                        <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
                                     </Link>
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/contacts" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>Contacts</div>
+                                        <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>My team</div>
                                     </Link>
                                     <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/setting" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>User Manage</div>
+                                        <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>White Paper</div>
                                     </Link>
                                 </nav>
-                            </div>
-                            <div className="flex-shrink-0 flex p-4 pb-7 dark:bg-bg-sidebar-dark">
-                                <a href="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'logout menu'}>Log out</div>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -148,45 +126,34 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <div className="flex items-center flex-shrink-0 px-8 space-x-4 text-black dark:text-white">
                                         <img className="h-12 w-auto" src={images.Logo} alt="logo" />
                                         <div>
-                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>SLIDEGER</h1>
-                                            <p className='text-[0.6rem] md:text-[0.6rem] dark:text-gray-400'>Decentralized Payment Network</p>
+                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>GSC</h1>
+                                            <p className='text-[0.6rem] md:text-[0.6rem] dark:text-gray-400'>International</p>
                                         </div>
                                     </div>
                                 </Link>
                                 <nav className="mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark text-white font-light">
                                     <Link to="/home" className="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Home</div>
+                                        <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                     </Link>
                                     <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => { onCloseAllModal(); setShowRecTokenModal(true) }}>Receive</div>
+                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')} onClick={() => { onCloseAllModal(); setShowRecTokenModal(true) }}>Deposit</div>
                                     </Link>
                                     <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => { onCloseAllModal(); setNewPayModal(true) }}>Send</div>
+                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')} onClick={() => { onCloseAllModal(); setNewPayModal(true) }}>Withdraw</div>
                                     </Link>
                                     <Link to="/buy-license" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Buy Licenses</div>
-                                    </Link>
-                                    <Link to="/trade" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'trade menu ' + (activedPage == "/trade" ? 'active' : '')}>Trade</div>
-                                    </Link>
-                                    <Link to="/transactions" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'transactions menu ' + (activedPage == "/transactions" ? 'active' : '')}>Transactions</div>
+                                        <div className={'buy menu ' + (activedPage == "/buy-license" ? 'active' : '')}>Growth Account</div>
                                     </Link>
                                     <Link to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Access History</div>
+                                        <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
                                     </Link>
                                     <Link to="/contacts" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>Contacts</div>
+                                        <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>My team</div>
                                     </Link>
                                     <Link to="/setting" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>User Manage</div>
+                                        <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>White Paper</div>
                                     </Link>
                                 </nav>
-                            </div>
-                            <div className="flex-shrink-0 flex p-4 pb-7 dark:bg-bg-sidebar-dark">
-                                <a href="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'logout menu'}>Log out</div>
-                                </a>
                             </div>
                         </div>
                     </div>
