@@ -10,6 +10,10 @@ import './css/custom.css';
 import DashboardLayout from './pages/Dashboard/DashboardLayout';
 import HomePage from './pages/Dashboard/HomePage';
 import Growth from './pages/Dashboard/Growth';
+import Deposit from './pages/Dashboard/Deposit';
+import Withdraw from './pages/Dashboard/Withdraw';
+import History from './pages/Dashboard/History';
+import Team from './pages/Dashboard/Team';
 import ErrorPage from './pages/Error';
 
 const App = () => {
@@ -48,8 +52,20 @@ const App = () => {
             <Route exact path="/home" element={<DashboardLayout>
               <HomePage></HomePage>
             </DashboardLayout>} />
+            <Route exact path="/deposit" element={<DashboardLayout>
+              <Deposit></Deposit>
+            </DashboardLayout>} />
+            <Route exact path="/withdraw" element={<DashboardLayout>
+              <Withdraw></Withdraw>
+            </DashboardLayout>} />
             <Route exact path="/growth" element={<DashboardLayout>
               <Growth></Growth>
+            </DashboardLayout>} />
+            <Route exact path="/history" element={<DashboardLayout>
+              <History></History>
+            </DashboardLayout>} />
+            <Route exact path="/team" element={<DashboardLayout>
+              <Team></Team>
             </DashboardLayout>} />
           </Routes>
         </BrowserRouter>

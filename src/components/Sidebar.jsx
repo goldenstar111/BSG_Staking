@@ -33,27 +33,26 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                 </div>
                             </Link>
                             <nav className="mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark dark:text-white">
-                                {/* <Link info="/home" classset={"mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark dark: text-white"} url="home_icon_sidebar" value="Home" /> */}
                                 <Link to="/home" className="text-gray-900 dark:text-gray-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                     <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                 </Link>
-                                {/* <Link to="/receive" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')}>Deposit</div>
-                                {/* </Link> */}
-                                {/* <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')}>Withdraw</div>
-                                {/* </Link> */}
+                                <Link to={"/deposit"} className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <div className={'receive menu ' + (activedPage == "/deposit" ? 'active' : '')}>Deposit</div>
+                                </Link>
+                                <Link to="/withdraw" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <div className={'send menu ' + (activedPage == "/withdraw" ? 'active' : '')}>Withdraw</div>
+                                </Link>
                                 <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                     <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
                                 </Link>
-                                <Link to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
+                                <Link to="/history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <div className={'access menu ' + (activedPage == "/history" ? 'active' : '')}>Deposit History</div>
                                 </Link>
-                                <Link to="/contacts" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>My team</div>
+                                <Link to="/team" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <div className={'contacts menu ' + (activedPage == "/team" ? 'active' : '')}>My team</div>
                                 </Link>
-                                <Link to="/setting" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>White Paper</div>
+                                <Link to="/" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <div className={'setting menu ' + (activedPage == "/" ? 'active' : '')}>White Paper</div>
                                 </Link>
                             </nav>
                         </div>
@@ -77,28 +76,26 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     </div>
                                 </Link>
                                 <nav className="mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark text-white font-light">
-                                    <Link to="/home" onClick={() => { setMenuToggling(pre => !pre) }} className="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <Link to="/home" className="text-gray-900 dark:text-gray-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                     </Link>
-                                    {/* <Link onClick={()=>{setMenuToggling(pre=>!pre)}} to="/receive" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5"> */}
-                                    <div className='text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5'>
-                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')}>Deposit</div>
-                                    </div>
-                                    {/* </Link> */}
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')}>Withdraw</div>
+                                    <Link to={"/deposit"} className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'receive menu ' + (activedPage == "/deposit" ? 'active' : '')}>Deposit</div>
                                     </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <Link to="/withdraw" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'send menu ' + (activedPage == "/withdraw" ? 'active' : '')}>Withdraw</div>
+                                    </Link>
+                                    <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
                                     </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
+                                    <Link to="/history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'access menu ' + (activedPage == "/history" ? 'active' : '')}>Deposit History</div>
                                     </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/contacts" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>My team</div>
+                                    <Link to="/team" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'contacts menu ' + (activedPage == "/team" ? 'active' : '')}>My team</div>
                                     </Link>
-                                    <Link onClick={() => { setMenuToggling(pre => !pre) }} to="/setting" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>White Paper</div>
+                                    <Link to="/" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'setting menu ' + (activedPage == "/" ? 'active' : '')}>White Paper</div>
                                     </Link>
                                 </nav>
                             </div>
@@ -118,26 +115,26 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     </div>
                                 </Link>
                                 <nav className="mt-5 flex-1 px-2 bg-white space-y-1 dark:bg-bg-sidebar-dark text-white font-light">
-                                    <Link to="/home" className="text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <Link to="/home" className="text-gray-900 dark:text-gray-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'home menu ' + (activedPage == "/home" ? 'active' : '')}>Dashboard</div>
                                     </Link>
-                                    <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'receive menu ' + (activedPage == "/receive" ? 'active' : '')}>Deposit</div>
+                                    <Link to={"/deposit"} className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'receive menu ' + (activedPage == "/deposit" ? 'active' : '')}>Deposit</div>
                                     </Link>
-                                    <Link to="#" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'send menu ' + (activedPage == "/send" ? 'active' : '')}>Withdraw</div>
+                                    <Link to="/withdraw" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'send menu ' + (activedPage == "/withdraw" ? 'active' : '')}>Withdraw</div>
                                     </Link>
                                     <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
                                     </Link>
-                                    <Link to="/access-history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'access menu ' + (activedPage == "/access-history" ? 'active' : '')}>Deposit History</div>
+                                    <Link to="/history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'access menu ' + (activedPage == "/history" ? 'active' : '')}>Deposit History</div>
                                     </Link>
-                                    <Link to="/contacts" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'contacts menu ' + (activedPage == "/contacts" ? 'active' : '')}>My team</div>
+                                    <Link to="/team" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'contacts menu ' + (activedPage == "/team" ? 'active' : '')}>My team</div>
                                     </Link>
-                                    <Link to="/setting" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'setting menu ' + (activedPage == "/setting" ? 'active' : '')}>White Paper</div>
+                                    <Link to="/" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                        <div className={'setting menu ' + (activedPage == "/" ? 'active' : '')}>White Paper</div>
                                     </Link>
                                 </nav>
                             </div>
