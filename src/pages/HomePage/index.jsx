@@ -78,11 +78,11 @@ const HomePage = () => {
 
             <div className='grid grid-cols-3 gap-2 py-2'>
                 <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
-                    <i class="fa-solid fa-filter-circle-dollar text-4xl"></i>
+                    <i className="fa-solid fa-filter-circle-dollar text-4xl"></i>
                     <p className='px-4'>Deposit</p>
                 </div>
                 <div className='d-flex border border-pink-400 py-4 px-6 items-center'>
-                    <i class="fa-sharp fa-solid fa-hand-holding-dollar text-4xl"></i>
+                    <i className="fa-sharp fa-solid fa-hand-holding-dollar text-4xl"></i>
                     <p className='px-4'>Withdraw</p>
                 </div>
                 <div className='d-flex border border-sky-400 py-4 px-6 items-center'>
