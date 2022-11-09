@@ -14,12 +14,21 @@ import Withdraw from './pages/Withdraw';
 import History from './pages/History';
 import Team from './pages/Team';
 import ErrorPage from './pages/Error';
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
 
 const App = () => {
   const [theme, setTheme] = useState(true);
   const [hambugerMenu, setHambugerMenu] = useState(false);
   const [isAuth, setAuth] = useState(false);
   //nftExplore page price hook
+
+  const getLibrary = (provider) => {
+    console.log(provider, "Provider");
+    const library = new Web3Provider(provider);
+    library.pollingInterval = 12000;
+    return library;
+  }
 
   useEffect(() =>
     !theme
@@ -44,30 +53,33 @@ const App = () => {
   return (
     <ThemeContext.Provider value={themeParam}>
       <AuthContext.Provider value={authParam}>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<LandPages />} />
-            <Route exact path="/error" element={<ErrorPage />} />
-            <Route exact path="/home" element={<DashboardLayout>
-              <HomePage></HomePage>
-            </DashboardLayout>} />
-            <Route exact path="/deposit" element={<DashboardLayout>
-              <Deposit></Deposit>
-            </DashboardLayout>} />
-            <Route exact path="/withdraw" element={<DashboardLayout>
-              <Withdraw></Withdraw>
-            </DashboardLayout>} />
-            <Route exact path="/growth" element={<DashboardLayout>
-              <Growth></Growth>
-            </DashboardLayout>} />
-            <Route exact path="/history" element={<DashboardLayout>
-              <History></History>
-            </DashboardLayout>} />
-            <Route exact path="/team" element={<DashboardLayout>
-              <Team></Team>
-            </DashboardLayout>} />
-          </Routes>
-        </BrowserRouter>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<LandPages />} />
+              <Route exact path="/error" element={<ErrorPage />} />
+              <Route exact path="/home" element={<DashboardLayout>
+                <HomePage></HomePage>
+              </DashboardLayout>} />
+              <Route exact path="/deposit" element={<DashboardLayout>
+                <Deposit></Deposit>
+              </DashboardLayout>} />
+              <Route exact path="/withdraw" element={<DashboardLayout>
+                <Withdraw></Withdraw>
+              </DashboardLayout>} />
+              <Route exact path="/growth" element={<DashboardLayout>
+                <Growth></Growth>
+              </DashboardLayout>} />
+              <Route exact path="/history" element={<DashboardLayout>
+                <History></History>
+              </DashboardLayout>} />
+              <Route exact path="/team" element={<DashboardLayout>
+                <Team></Team>
+              </DashboardLayout>} />
+              <Route exact path="/*" element={<ErrorPage />} />
+            </Routes>
+          </BrowserRouter>
+        </Web3ReactProvider>
       </AuthContext.Provider>
     </ThemeContext.Provider>
   )
