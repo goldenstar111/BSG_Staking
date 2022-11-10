@@ -49,7 +49,7 @@ const HeroSection = ({ themeToggling, menuToggling, setMenuToggling }) => {
       </h1>
       <p className='relative pt-8 w-full lg:w-[650px] mx-auto '>
         Revolutionary Smart Contract technology provides decentralized market participants
-        with the ability to directly engage in personal and business transactions. The GSC, Verified by Polygon Blockchain.
+        with the ability to directly engage in personal and business transactions. The Web3.DeFi, Verified by Polygon Blockchain.
       </p>
       <div className='relative flex items-center justify-center py-10 gap-4 text-slate-200'>
         <div className='flex items-center gap-4 px-4 py-2 rounded-lg bg-gradient-to-r from-[#BF36E6] to-blue-800 cursor-pointer hover:shadow-xl duration-200 '>

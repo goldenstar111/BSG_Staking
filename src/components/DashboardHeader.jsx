@@ -8,13 +8,15 @@ import {
     getCurrentWalletConnected,
     _register,
     getRegistered,
+    getDepositors
 } from "./interact";
 
-const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling, children }) => {
+const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling }) => {
     const [isRegister, setRegister] = useState(false);
     const [walletAddress, setWallet] = useState("");
     const [status, setStatus] = useState("");
     const [referral, setReferral] = useState(DEFAULT_REFERRAL);
+    const [depositors, setDepositors] = useState([]);
 
     const connect = async () => {
         const walletResponse = await connectWallet();
@@ -30,7 +32,7 @@ const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMen
     const beautify = (addr) => {
         var value, length;
         length = addr.length;
-        value = addr.slice(0, 5) + '...' + addr.slice(length - 3, length);
+        value = addr.slice(0, 6) + '...' + addr.slice(length - 4, length);
         return value;
     }
 
@@ -74,11 +76,13 @@ const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMen
 
     useEffect(() => {
         const checkRegistered = async () => {
-            let status = false, _usdt = 0;
             if (walletAddress.length > 0) {
-                status = await getRegistered(walletAddress);
+                let status = await getRegistered(walletAddress);
+                setRegister(status);
+                let _depositors = await getDepositors();
+                let filtered_depositors = _depositors.filter(function(e) { return e !== DEFAULT_REFERRAL })
+                setDepositors(filtered_depositors);
             }
-            setRegister(status);
         }
 
         checkRegistered();
@@ -92,7 +96,7 @@ const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMen
                         <Link to={'/'} className='lg:invisible flex items-center gap-4 xs:gap-1 justify-center z-50'>
                             <img src={images.Logo} alt="" className='w-12 ' />
                             <div>
-                                <h1 className='text-xl md:text-2xl font-bold dark:text-white tracking-widest'>GSC</h1>
+                                <h1 className='text-xl md:text-2xl font-bold dark:text-white tracking-widest'>Web3.DeFi</h1>
                                 <p className='text-xs md:text-sm text-gray-400'>Decentralized Payment Network</p>
                             </div>
                         </Link>
@@ -105,11 +109,21 @@ const DashboardHeader = ({ themeToggling, setThemeToggling, menuToggling, setMen
                                 walletAddress.length > 0 && !isRegister &&
                                 <>
                                     <button className='border border-sky-400 bg-transparent rounded-md py-1 px-4 hover:bg-white' onClick={() => register()}>Register</button>
-                                    <input placeholder='Referral' type={"text"}
+                                    {/* <input placeholder='Referral' type={"text"}
                                         className="py-1 rounded-md px-2 border"
                                         defaultValue={referral}
                                         onChange={(e) => setReferral(e.target.value)}
-                                    />
+                                    /> */}
+                                    <select id="referrals" name="referrals" onChange={(ev)=> setReferral(ev.target.value)}
+                                        className="py-1 rounded-md px-2 border">
+                                        <option value={DEFAULT_REFERRAL}>{beautify(DEFAULT_REFERRAL)}</option>
+                                        {
+                                            depositors && depositors.length > 0 &&
+                                            depositors.map((item, index) => (
+                                                <option value={item} key={index}>{beautify(item)}</option>
+                                            ))
+                                        }
+                                    </select>
                                 </>
                             }
                             {

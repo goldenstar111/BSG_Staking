@@ -36,12 +36,13 @@ const DepositPage = () => {
 
     const deposit = async () => {
         let result = await _deposit(depositAmount);
+        window.location.href = "/home";
     }
 
     const approve = async () => {
-        let result = await _approve(depositAmount*1e6);
-        if(result){
-            setAllowance(depositAmount*1e6);
+        let result = await _approve(depositAmount * 1e6);
+        if (result) {
+            setAllowance(depositAmount * 1e6);
         }
     }
 
@@ -69,9 +70,8 @@ const DepositPage = () => {
         }
     }
 
-    const calDate = (_date) =>{
-        let _tmp = _date * 1000;
-        let b = new Date(_tmp);
+    const calDate = (_date) => {
+        let b = new Date((_date) * 1000);
         return b.toLocaleString();
     }
 
@@ -119,12 +119,12 @@ const DepositPage = () => {
                             <button className="bg-green-300 text-white w-full text-lg py-1 rounded-md cursor-not-allowed" disabled>Please Register</button>
                         }
                         {
-                            walletAddress.length > 0 && isRegister && (depositAmount*1e6 > allowance) &&
-                            <button onClick={()=>approve()} className="bg-green-400 text-white w-full text-lg py-1 rounded-md">Approve</button>
+                            walletAddress.length > 0 && isRegister && (depositAmount * 1e6 > allowance) &&
+                            <button onClick={() => approve()} className="bg-green-400 text-white w-full text-lg py-1 rounded-md">Approve</button>
                         }
                         {
-                            walletAddress.length > 0 && isRegister && (depositAmount*1e6 <= allowance) &&
-                            <button onClick={()=>deposit()} className="bg-green-400 text-white w-full text-lg py-1 rounded-md">Deposit</button>
+                            walletAddress.length > 0 && isRegister && (depositAmount * 1e6 <= allowance) &&
+                            <button onClick={() => deposit()} className="bg-green-400 text-white w-full text-lg py-1 rounded-md">Deposit</button>
                         }
                     </div>
 

@@ -287,7 +287,9 @@ export const getRegistered = async () => {
       method: "eth_call",
       params: [transactionParameters],
     });
-    isRegistered = parseInt(isRegistered) != 0;
+    if (isRegistered.length <= 2)
+      return false;
+    isRegistered = parseInt(isRegistered, 16) != 0;
     return isRegistered;
   } catch (error) {
     console.log(error);
@@ -523,7 +525,7 @@ export const getMyTeams = async (_user) => {
     teamlength = parseInt(teamlength, 16);
     console.log('teamlength', teamlength)
     let teamlist = [];
-    
+
     for (let index = 0; index < teamlength; index++) {
       transactionParameters = {
         to: CONTRACT_ADDRESS, // Required except during contract publications.
@@ -537,7 +539,7 @@ export const getMyTeams = async (_user) => {
         params: [transactionParameters],
       });
       teamaddress = parseAddress(teamaddress);
-      console.log('teamaddress',teamaddress)
+      console.log('teamaddress', teamaddress)
       transactionParameters = {
         to: CONTRACT_ADDRESS, // Required except during contract publications.
         from: window.ethereum.selectedAddress, // must match user's active address.
@@ -640,8 +642,8 @@ export const getFinalOrder = async (_user) => {
       params: [transactionParameters],
     });
     orderlength = parseInt(orderlength, 16);
-    if(orderlength == 0)
-    return null
+    if (orderlength == 0)
+      return null
     console.log('orderlength', orderlength)
     transactionParameters = {
       to: CONTRACT_ADDRESS, // Required except during contract publications.
@@ -654,11 +656,51 @@ export const getFinalOrder = async (_user) => {
       method: "eth_call",
       params: [transactionParameters],
     });
-
     _order = parseOrderInfo(_order);
     return _order;
   } catch (error) {
     console.log(error)
     return null;
+  }
+}
+
+
+export const getDepositors = async () => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getDepositorsLength()
+        .encodeABI(),
+    };
+
+    let depositorslength = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    depositorslength = parseInt(depositorslength, 16);
+    console.log('depositors length', depositorslength)
+    let Depositors = [];
+    for (let index = 0; index < depositorslength; index++) {
+      transactionParameters = {
+        to: CONTRACT_ADDRESS, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.staking.methods
+          .depositors(index)
+          .encodeABI(),
+      };
+      let _user = await window.ethereum.request({
+        method: "eth_call",
+        params: [transactionParameters],
+      });
+      Depositors.push(parseAddress(_user));
+    }
+    return Depositors;
+  } catch (error) {
+    console.log(error)
+    return [];
   }
 }

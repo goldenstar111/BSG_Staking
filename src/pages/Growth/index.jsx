@@ -42,8 +42,8 @@ const GrowthPage = () => {
 
     return (
         <div className="mt-14 p-4 mx-2 text-gray-600 bg-gray-100 rounded-md border-t border-gray-400">
-            <p className="text-xl"> Growth Account</p>
-            <p className="py-2 font-semibold">USDT</p>
+            <p className="text-xl"> Lock USDT</p>
+            <p className="py-2 font-semibold">Locked USDT</p>
             <input className="bg-white py-1 px-2 w-full" type={"number"} defaultValue={parseFloat(split) / 1e6} disabled></input>
             <p className="py-2 font-semibold">Amount</p>
             <input type={"number"} defaultValue={50} min={0} max={parseFloat(split) / 1e6} step={10} className="bg-white py-1 px-2 w-full" ></input>

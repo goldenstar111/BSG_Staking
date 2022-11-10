@@ -27,7 +27,7 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                 <div className="flex items-center flex-shrink-0 px-8 space-x-4">
                                     <img className="h-12 w-auto" src={images.Logo} alt="logo" />
                                     <div>
-                                        <h1 className='text-xl md:text-lg font-medium tracking-[.1em]'>GSC</h1>
+                                        <h1 className='text-xl md:text-lg font-medium tracking-[.1em]'>Web3.DeFi</h1>
                                         <p className='text-[0.6rem] md:text-[0.6rem] '>International</p>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <div className={'send menu ' + (activedPage == "/withdraw" ? 'active' : '')}>Withdraw</div>
                                 </Link>
                                 <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                    <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
+                                    <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Lock USDT</div>
                                 </Link>
                                 <Link to="/history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                     <div className={'access menu ' + (activedPage == "/history" ? 'active' : '')}>Deposit History</div>
@@ -70,7 +70,7 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <div className="flex items-center flex-shrink-0 px-8 space-x-4 text-black dark:text-white">
                                         <img className="h-12 w-auto" src={images.Logo} alt="logo" />
                                         <div>
-                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>GSC</h1>
+                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>Web3.DeFi</h1>
                                             <p className='text-[0.6rem] md:text-[0.6rem] '>International</p>
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                         <div className={'send menu ' + (activedPage == "/withdraw" ? 'active' : '')}>Withdraw</div>
                                     </Link>
                                     <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
+                                        <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Lock USDT</div>
                                     </Link>
                                     <Link to="/history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'access menu ' + (activedPage == "/history" ? 'active' : '')}>Deposit History</div>
@@ -109,7 +109,7 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <div className="flex items-center flex-shrink-0 px-8 space-x-4 text-black dark:text-white">
                                         <img className="h-12 w-auto" src={images.Logo} alt="logo" />
                                         <div>
-                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>GSC</h1>
+                                            <h1 className='text-xl md:text-xl font-medium tracking-[.1em]'>Web3.DeFi</h1>
                                             <p className='text-[0.6rem] md:text-[0.6rem] dark:text-gray-400'>International</p>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                         <div className={'send menu ' + (activedPage == "/withdraw" ? 'active' : '')}>Withdraw</div>
                                     </Link>
                                     <Link to="/growth" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
-                                        <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Growth Account</div>
+                                        <div className={'buy menu ' + (activedPage == "/growth" ? 'active' : '')}>Lock USDT</div>
                                     </Link>
                                     <Link to="/history" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'access menu ' + (activedPage == "/history" ? 'active' : '')}>Deposit History</div>

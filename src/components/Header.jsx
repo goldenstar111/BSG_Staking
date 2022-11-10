@@ -16,7 +16,7 @@ const Header = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling
             <div className='flex items-center gap-4 sm:gap-1 xs:gap-1 justify-center z-50'>
               <img src={images.Logo} alt="" className='w-12 sm:w-10 xs:w-8 mr-3 ' />
               <div>
-                <h1 className='lg:text-xl xl:text-xl 2xl:text-xl 3xl:text-xl sm:text-lg xs:text-xs md:text-2xl font-bold dark:text-white tracking-widest'>GSC</h1>
+                <h1 className='lg:text-xl xl:text-xl 2xl:text-xl 3xl:text-xl sm:text-lg xs:text-xs md:text-2xl font-bold dark:text-white tracking-widest'>Web3.DeFi</h1>
                 <p className='text-xs md:text-sm text-gray-400'>International</p>
               </div>
             </div>

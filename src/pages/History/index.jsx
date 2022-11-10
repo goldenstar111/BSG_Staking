@@ -8,7 +8,8 @@ import {
     getUserInfo,
     getRewardInfo,
     getCurDay,
-    getOrders
+    getOrders,
+    getFinalOrder
 } from "../../components/interact";
 import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } from "../../config";
 
@@ -18,6 +19,7 @@ const HistoryPage = () => {
     const [rewardInfo, setRewardInfo] = useState(null);
     const [curday, setCurday] = useState(1);
     const [orderlist, setOrderList] = useState([]);
+    const [finalOrder, setFinalOrder] = useState(null);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -41,11 +43,14 @@ const HistoryPage = () => {
             setCurday(_curday + 1);
             let _orders = await getOrders(walletAddress);
             setOrderList(_orders);
+            let _finalOrder = await getFinalOrder(walletAddress);
+            setFinalOrder(_finalOrder);
         } else {
             setUserInfo(null);
             setRewardInfo(null);
             setCurday(1);
             setOrderList([]);
+            setFinalOrder(null);
         }
     }
 
@@ -56,10 +61,19 @@ const HistoryPage = () => {
         return value;
     }
 
-    const calDate = (_date) =>{
-        let _tmp = _date * 1000;
-        let b = new Date(_tmp);
+    const calDate = (_date) => {
+        let b = new Date((_date) * 1000);
         return b.toLocaleString();
+    }
+
+    const calCycleStatus = (_date) => {
+        let _now = new Date;
+        let _enddate = new Date((_date) * 1000);
+        if (_now < _enddate) {
+            return _enddate.toLocaleString() + " Available";
+        } else {
+            return "Cycle Completed"
+        }
     }
 
     return (
@@ -74,7 +88,7 @@ const HistoryPage = () => {
                 </a>
                 <p className='py-1'>
                     <i className="fa-sharp fa-solid fa-clock"></i>
-                    <span className='px-2'>Platform Running time: {curday} Days</span>
+                    <span className='px-2'>Platform Running time: {curday || 0} Days</span>
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-recycle"></i>
@@ -82,7 +96,11 @@ const HistoryPage = () => {
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-stopwatch"></i>
-                    <span className='px-2'>Deposit time: ...</span>
+                    <span className='px-2'>Deposit time: {finalOrder?.start > 0 ? calDate(finalOrder?.start) : "..."}</span>
+                </p>
+                <p className='py-1'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    <span className='px-2'>Cycle Status: {finalOrder?.unfreeze > 0 ? calCycleStatus(finalOrder?.unfreeze) : "..."}</span>
                 </p>
             </div>
 
@@ -100,10 +118,10 @@ const HistoryPage = () => {
                             orderlist.map((item, index) => (
                                 <>
                                     <div>{item.cycle || 0}</div>
-                                    <div>$ {item.amount/1e6 || 0}</div>
+                                    <div>$ {item.amount / 1e6 || 0}</div>
                                     <div>{item.start ? calDate(item.start) : "No Information"}</div>
                                     <div>{item.unfreeze ? calDate(item.unfreeze) : "No Information"}</div>
-                                    <div>{item.isClaimed? "true":"false"}</div>
+                                    <div>{item.isClaimed ? "Complete" : "InComplete"}</div>
                                 </>
                             ))
                         )

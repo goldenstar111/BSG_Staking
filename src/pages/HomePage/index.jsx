@@ -10,7 +10,8 @@ import {
     getReferral,
     getUserInfo,
     getRewardInfo,
-    getCurDay
+    getCurDay,
+    getFinalOrder
 } from "../../components/interact";
 
 const HomePage = () => {
@@ -21,6 +22,8 @@ const HomePage = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [rewardInfo, setRewardInfo] = useState(null);
     const [curday, setCurday] = useState(1);
+    const [finalOrder, setFinalOrder] = useState(null);
+    const [remaining, setRemaining] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -46,14 +49,28 @@ const HomePage = () => {
             setUserInfo(_userInfo);
             let _reward = await getRewardInfo(walletAddress);
             setRewardInfo(_reward);
+            let _finalOrder = await getFinalOrder(walletAddress);
+            setFinalOrder(_finalOrder);
             let _curday = await getCurDay();
             setCurday(_curday + 1);
+
+            let _remaining = 0;
+            let _now = new Date();
+            let _end = _finalOrder ? _finalOrder.unfreeze : 0;
+            if (_end > 0) {
+                _now = parseInt(_now / 1e3);
+                _end = parseInt(_end);
+                if (_now < _end) {
+                    setRemaining(_end - _now);
+                }
+            }
         } else {
             setBal_matic(0);
             setBal_usdt(0);
             setReferral("");
             setUserInfo(null);
             setRewardInfo(null);
+            setFinalOrder(null);
             setCurday(1);
         }
     }
@@ -64,20 +81,50 @@ const HomePage = () => {
         value = addr.slice(0, 5) + '...' + addr.slice(length - 3, length);
         return value;
     }
-    
+
     const getMembership = (member) => {
-        if(member == 0){
+        if (member == 0) {
             return "Normal"
-        }else if(member == 1){
+        } else if (member == 1) {
             return "Booster"
-        }else if(member == 2){
+        } else if (member == 2) {
             return "Diamond"
-        }else if(member == 3){
+        } else if (member == 3) {
             return "Blue Diamond"
-        }else if(member == 4){
+        } else if (member == 4) {
             return "Crown Diamond"
         }
     }
+
+    const calDate = (_date) => {
+        let b = new Date((_date) * 1000);
+        return b.toLocaleString();
+    }
+
+    const calCycleStatus = (_date) => {
+        let _now = new Date;
+        let _enddate = new Date((_date) * 1000);
+        if (_now < _enddate) {
+            return _enddate.toLocaleString() + " Available";
+        } else {
+            return "Cycle Completed"
+        }
+    }
+
+    const beautifyTime = (_date) => {
+        let day, hour, min, sec;
+        day = parseInt((_date) / (60 * 60 * 24));
+        hour = parseInt((_date % (60 * 60 * 24)) / (60 * 60));
+        min = parseInt((_date % (60 * 60)) / 60);
+        sec = _date % 60;
+        return `${day} : ${hour} : ${min} : ${sec}`
+    }
+
+    setTimeout(() => {
+        if (remaining > 0) {
+            setRemaining(remaining - 1);
+        }
+    }, 1000)
 
     return (
         <main className="gap-5 bg-white dark:bg-[#1C203B] p-3" id="home-page">
@@ -94,7 +141,7 @@ const HomePage = () => {
                 </a>
                 <p className='py-1'>
                     <i className="fa-sharp fa-solid fa-clock"></i>
-                    <span className='px-2'>Platform Running time: {curday} Days</span>
+                    <span className='px-2'>Platform Running time: {curday || 0} Days</span>
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-recycle"></i>
@@ -102,7 +149,11 @@ const HomePage = () => {
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-stopwatch"></i>
-                    <span className='px-2'>Deposit time: ...</span>
+                    <span className='px-2'>Deposit time: {finalOrder?.start > 0 ? calDate(finalOrder?.start) : "..."}</span>
+                </p>
+                <p className='py-1'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    <span className='px-2'>Cycle Status: {finalOrder?.unfreeze > 0 ? calCycleStatus(finalOrder?.unfreeze) : "..."}</span>
                 </p>
             </div>
 
@@ -146,9 +197,23 @@ const HomePage = () => {
                     <i className="fa-solid fa-user-doctor text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>Current Cycle Number</span>
-                        <span>{rewardInfo?.cycleNumber - 1}</span>
+                        <span>{rewardInfo?.cycleNumber < 2 ? 0 : rewardInfo?.cycleNumber - 1}</span>
                     </p>
                 </div>
+                {/* <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-user-doctor text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Current Cycle Number</span>
+                        <span>{rewardInfo?.cycleNumber < 2 ? 0 : rewardInfo?.cycleNumber - 1}</span>
+                    </p>
+                </div>
+                <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-user-doctor text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Current Cycle Number</span>
+                        <span>{rewardInfo?.cycleNumber < 2 ? 0 : rewardInfo?.cycleNumber - 1}</span>
+                    </p>
+                </div> */}
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 mb-4'>
@@ -162,7 +227,7 @@ const HomePage = () => {
                 </Link>
                 <Link to={'/growth'} className='d-flex border border-sky-400 py-4 px-6 items-center'>
                     <i className="fa-solid fa-dollar-sign text-4xl"></i>
-                    <p className='px-4'>Growth Account</p>
+                    <p className='px-4'>Lock USDT</p>
                 </Link>
             </div>
             <div className='p-2 bg-gray-100 dark:bg-gray-700 mb-4'>
@@ -183,8 +248,8 @@ const HomePage = () => {
                     <i className="fa-solid fa-stopwatch"></i>
                     Manager Reward Time Remaining
                 </p>
-                <p>Hours Minutes Seconds</p>
-                <p>00: 00: 00</p>
+                <p>D : H : M : S</p>
+                <p>{beautifyTime(remaining)}</p>
             </div>
 
             {/* <div className='border-t border-pink-400 p-2 mb-4'>

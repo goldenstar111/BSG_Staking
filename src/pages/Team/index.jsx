@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-    connectWallet,
     getCurrentWalletConnected,
-    getUSDTBalance,
-    handleWalletBalance,
-    getReferral,
     getUserInfo,
     getRewardInfo,
     getCurDay,
-    getMyTeams
+    getMyTeams,
+    getFinalOrder
 } from "../../components/interact";
 import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } from "../../config";
 
@@ -18,6 +15,7 @@ const TeamPage = () => {
     const [rewardInfo, setRewardInfo] = useState(null);
     const [curday, setCurday] = useState(1);
     const [teamList, setTeamList] = useState([]);
+    const [finalOrder, setFinalOrder] = useState(null);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -41,11 +39,14 @@ const TeamPage = () => {
             setCurday(_curday + 1);
             let _teamlist = await getMyTeams(walletAddress);
             setTeamList(_teamlist);
+            let _finalOrder = await getFinalOrder(walletAddress);
+            setFinalOrder(_finalOrder);
         } else {
             setUserInfo(null);
             setRewardInfo(null);
             setCurday(1);
             setTeamList([]);
+            setFinalOrder(null);
         }
     }
 
@@ -57,16 +58,31 @@ const TeamPage = () => {
     }
 
     const getMembership = (member) => {
-        if(member == 0){
+        if (member == 0) {
             return "Normal"
-        }else if(member == 1){
+        } else if (member == 1) {
             return "Booster"
-        }else if(member == 2){
+        } else if (member == 2) {
             return "Diamond"
-        }else if(member == 3){
+        } else if (member == 3) {
             return "Blue Diamond"
-        }else if(member == 4){
+        } else if (member == 4) {
             return "Crown Diamond"
+        }
+    }
+
+    const calDate = (_date) => {
+        let b = new Date((_date) * 1000);
+        return b.toLocaleString();
+    }
+
+    const calCycleStatus = (_date) => {
+        let _now = new Date;
+        let _enddate = new Date((_date) * 1000);
+        if (_now < _enddate) {
+            return _enddate.toLocaleString() + " Available";
+        } else {
+            return "Cycle Completed"
         }
     }
 
@@ -82,7 +98,7 @@ const TeamPage = () => {
                 </a>
                 <p className='py-1'>
                     <i className="fa-sharp fa-solid fa-clock"></i>
-                    <span className='px-2'>Platform Running time: {curday} Days</span>
+                    <span className='px-2'>Platform Running time: {curday || 0} Days</span>
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-recycle"></i>
@@ -90,7 +106,11 @@ const TeamPage = () => {
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-stopwatch"></i>
-                    <span className='px-2'>Deposit time: ...</span>
+                    <span className='px-2'>Deposit time: {finalOrder?.start > 0 ? calDate(finalOrder?.start) : "..."}</span>
+                </p>
+                <p className='py-1'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    <span className='px-2'>Cycle Status: {finalOrder?.unfreeze > 0 ? calCycleStatus(finalOrder?.unfreeze) : "..."}</span>
                 </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 bg-gray-100 border-t border-gray-400 p-4 rounded-md mb-4">
@@ -152,9 +172,9 @@ const TeamPage = () => {
                             teamList.map((item, index) => (
                                 <>
                                     <div className="col-span-2">{item.address ? beautify(item.address) : "..."}</div>
-                                    <div>$ {item.maxDeposit/1e6 || 0}</div>
-                                    <div>$ {item.totalDeposit/1e6 || 0}</div>
-                                    <div>$ {item.totalRevenue/1e6 || 0}</div>
+                                    <div>$ {item.maxDeposit / 1e6 || 0}</div>
+                                    <div>$ {item.totalDeposit / 1e6 || 0}</div>
+                                    <div>$ {item.totalRevenue / 1e6 || 0}</div>
                                     <div>{getMembership(item.membership || 0)}</div>
                                 </>
                             ))

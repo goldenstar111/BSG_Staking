@@ -69,9 +69,9 @@ const WithdrawPage = () => {
                             <p className="text-right py-1">${reward?.more1k/1e6 || 0} USDT</p>
                             <p className="py-1">Infinity Reward</p>
                             <p className="text-right py-1">${reward?.infinityBonusReleased/1e6 || 0} USDT</p>
-                            <p className="py-1">Withdraw Percent</p>
+                            <p className="py-1">Withdraw</p>
                             <p className="text-right py-1">70%</p>
-                            <p className="py-1">Lock Percent</p>
+                            <p className="py-1">Lock</p>
                             <p className="text-right py-1">30%</p>
                             <p className="py-1">Available withdrawal</p>
                             <p className="text-right py-1">
