@@ -9,7 +9,7 @@ const Header = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling
   return (
     <ThemeContext.Consumer>
       {({ isToggle, toggleTheme }) => (
-        <header className='px-1 sm:px-4 lg:px-24 py-1 md:py-6 flex 
+        <header className='p-4 sm:px-4 lg:px-24 md:py-6 flex 
               items-center justify-between flex-wrap dark:bg-[#2B1867] text-gray-700 dark:text-gray-200 z-40'>
 
           <Link to="/">
@@ -38,7 +38,7 @@ const Header = ({ themeToggling, setThemeToggling, menuToggling, setMenuToggling
             
           </div>
 
-          <Link to={"/home"} className="">Connect</Link>
+          <Link to={"/home"} className="text-xs md:text-base">Connect</Link>
 
         </header>
       )}

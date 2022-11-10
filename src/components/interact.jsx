@@ -1,10 +1,54 @@
-// require("dotenv").config();
-// const contractABI = require("./contract-abi.json");
-// const MarketABI = require("./market-abi.json");
-// const NFTABI = require("./nft-abi.json");
-// const contractAddress = "0x92d474d216ce429c1efc7f48d7ff66bae5d070cd";
-// const Market_Addr = "0x5DeDf79Fba6F8313E72b06d5C479d478268BAb04";
-// const NFT_Addr = "0xCE7131e54F27c6E87c21757C5eb62FA5A1048bfB";
+import AppContract from "../abi/BSG.json";
+import USDTContract from "../abi/USDT.json";
+import web3 from "../ethereum/web3";
+import { ethers } from 'ethers';
+
+import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } from "../config";
+
+const parseUserInfo = (hexdata) => {
+  let data = {};
+  data.referrer = "0x" + hexdata.substring(26, 66);
+  data.start = parseInt(hexdata.substring(67, 130), 16);
+  data.level = parseInt(hexdata.substring(131, 194), 16);
+  data.maxDeposit = parseInt(hexdata.substring(195, 258), 16);
+  data.totalDeposit = parseInt(hexdata.substring(259, 322), 16);
+  data.teamNum = parseInt(hexdata.substring(323, 386), 16);
+  data.teamTotalDeposit = parseInt(hexdata.substring(387, 450), 16);
+  data.teamTotalVolume = parseInt(hexdata.substring(451, 514), 16);
+  data.totalFreezed = parseInt(hexdata.substring(515, 578), 16);
+  data.totalRevenue = parseInt(hexdata.substring(579, 642), 16);
+  data.membership = parseInt(hexdata.substring(643, 706), 16);
+  data.directBonusCount = parseInt(hexdata.substring(707, 770), 16);
+  return data;
+}
+
+const parseRewardInfo = (hexdata) => {
+  let data = {};
+  data.capitals = parseInt(hexdata.substring(2, 66), 16);
+  data.statics = parseInt(hexdata.substring(67, 130), 16);
+  data.directs = parseInt(hexdata.substring(131, 194), 16);
+  data.levelReleased = parseInt(hexdata.substring(195, 258), 16);
+  data.infinityBonusReleased = parseInt(hexdata.substring(259, 322), 16);
+  data.cycleNumber = parseInt(hexdata.substring(323, 386), 16);
+  data.more1k = parseInt(hexdata.substring(387, 450), 16);
+  data.split = parseInt(hexdata.substring(451, 514), 16);
+  data.splitDebt = parseInt(hexdata.substring(515, 578), 16);
+  return data;
+}
+
+const parseOrderInfo = (hexdata) => {
+  let data = {};
+  data.cycle = parseInt(hexdata.substring(2, 66), 16);
+  data.amount = parseInt(hexdata.substring(67, 130), 16);
+  data.start = parseInt(hexdata.substring(131, 194), 16);
+  data.unfreeze = parseInt(hexdata.substring(195, 258), 16);
+  data.isClaimed = (parseInt(hexdata.substring(259, 322), 16) != 0);
+  return data;
+}
+
+const parseAddress = (hexdata) => {
+  return "0x" + hexdata.substring(26, 66);
+}
 
 export const connectWallet = async () => {
   if (window.ethereum) {
@@ -84,434 +128,537 @@ export const getCurrentWalletConnected = async () => {
   }
 };
 
-// export const getPriceById = async (_id) => {
-//   const tmp_id = parseInt(_id);
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+// writable functions
+export const _register = async (referral) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .getPriceById(tmp_id)
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .register(referral)
+      .encodeABI(),
+  };
 
-//   try {
-//     var price = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     price = parseInt(price) / 10**18;
-//     return price;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+};
 
-// export const check_minted = async (_id) => {
-//   const tmp_id = parseInt(_id);
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const _deposit = async (amount) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .check_minted(tmp_id)
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .deposit(amount)
+      .encodeABI(),
+  };
 
-//   try {
-//     var _minted = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     return _minted;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+};
 
-// export const check_listedAll = async (_id) => {
-//   const tmp_id = parseInt(_id);
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const _withdraw = async () => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .idToMarketItem(tmp_id)
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .withdraw()
+      .encodeABI(),
+  };
 
-//   try {
-//     var _item = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     return _item;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+};
 
-// export const owner = async () => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const _approve = async (amount) => {
+  window.usdt = await new web3.eth.Contract(USDTContract.abi, CONTRACT_ADDRESS_USDT);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .owner()
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS_USDT, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.usdt.methods
+      .approve(CONTRACT_ADDRESS, parseInt(amount))
+      .encodeABI(),
+  };
 
-//   try {
-//     var owneraddr = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     return owneraddr;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+};
 
-// export const ownerOf = async (_id) => {
-//   const tmp_id = parseInt(_id);
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const _depositBySplit = async (amount) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .ownerOf(tmp_id)
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .depositBySplit(amount)
+      .encodeABI(),
+  };
 
-//   try {
-//     var _owner = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     return _owner;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+};
 
-// export const balanceOf = async (addr) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const _transferBySplit = async (_user, amount) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .balanceOf(addr)
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .transferBySplit(_user, amount)
+      .encodeABI(),
+  };
 
-//   try {
-//     var cnt = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     return cnt;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  try {
+    const txHash = await window.ethereum.request({
+      method: "eth_sendTransaction",
+      params: [transactionParameters],
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+};
 
-// export const fetchMyNFTs = async (addr) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+//read functions
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .fetchMyNFTs(addr)
-//       .encodeABI(),
-//   };
+export const getRegistered = async () => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  const accounts = await provider.send("eth_requestAccounts", []);
 
-//   try {
-//     var my_nfts = await window.ethereum.request({
-//       method: "eth_call",
-//       params: [transactionParameters],
-//     });
-//     return my_nfts;
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// }
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      ._checkRegistered(accounts[0])
+      .encodeABI(),
+  };
 
-// export const mintMarketItem = async (id, price) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
-//   const hex_price = web3.utils.toHex(web3.utils.toWei(price.toString(), 'ether'))
+  try {
+    var isRegistered = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    isRegistered = parseInt(isRegistered) != 0;
+    return isRegistered;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     value: hex_price, // Only required to send ether to the recipient from the initiating external account.
-//     data: window.market.methods
-//       .mintMarketItem(id)
-//       .encodeABI(),
-//   };
+export const getUSDTBalance = async () => {
+  window.usdt = await new web3.eth.Contract(USDTContract.abi, CONTRACT_ADDRESS_USDT);
+  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  const accounts = await provider.send("eth_requestAccounts", []);
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS_USDT, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.usdt.methods
+      .balanceOf(accounts[0])
+      .encodeABI(),
+  };
 
-// export const mintMarketItemToList = async (id, price, new_price) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
-//   var hex_price = web3.utils.toHex(web3.utils.toWei(price.toString(), 'ether'))
-//   var hex_newprice = web3.utils.toHex(web3.utils.toWei(new_price.toString(), 'ether'))
+  try {
+    var isRegistered = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    isRegistered = parseInt(isRegistered) / 1e6;
+    return isRegistered;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     value: hex_price, // Only required to send ether to the recipient from the initiating external account.
-//     data: window.market.methods
-//       .mintMarketItemToList(id, hex_newprice)
-//       .encodeABI(),
-//   };
+export const handleWalletBalance = async () => {
+  const { ethereum } = window;
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+  if (ethereum) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    const accounts = await provider.send("eth_requestAccounts", []);
+    const balance = await provider.getBalance(accounts[0])
+    let bal = ethers.utils.formatEther(balance)
+    return bal
+  }
+  return 0;
+}
 
-// export const claim = async (addr) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const getReferral = async () => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  const accounts = await provider.send("eth_requestAccounts", []);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .claim(addr)
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .userInfo(accounts[0])
+      .encodeABI(),
+  };
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
-
-// export const Init = async () => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
-
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .initNFTLevels()
-//       .encodeABI(),
-//   };
-
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+  try {
+    var _userinfo = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    let parsed = parseUserInfo(_userinfo);
+    return parsed.referrer;
+  } catch (error) {
+    console.log(error)
+    return "";
+  }
+}
 
 
-// export const dropNFTById = async (_id) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
+export const getAllowance = async () => {
+  window.usdt = await new web3.eth.Contract(USDTContract.abi, CONTRACT_ADDRESS_USDT);
+  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  const accounts = await provider.send("eth_requestAccounts", []);
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .dropNFTById(parseInt(_id))
-//       .encodeABI(),
-//   };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS_USDT, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.usdt.methods
+      .allowance(accounts[0], CONTRACT_ADDRESS)
+      .encodeABI(),
+  };
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+  try {
+    var _allowance = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _allowance = parseInt(_allowance);
+    return _allowance;
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
 
+export const getClaimable = async (_user) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-// export const purchaseItem = async (id, price) => {
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
-//   const hex_price = web3.utils.toHex(web3.utils.toWei(price.toString(), 'ether'))
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      ._checkClaimable(_user)
+      .encodeABI(),
+  };
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     value: hex_price, // Only required to send ether to the recipient from the initiating external account.
-//     data: window.market.methods
-//       .purchaseItem(parseInt(id))
-//       .encodeABI(),
-//   };
+  try {
+    var isRegistered = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    isRegistered = parseInt(isRegistered) != 0;
+    return isRegistered;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+export const getLastDeposit = async (_user) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .userInfo(_user)
+      .encodeABI(),
+  };
 
-// export const updatePriceById = async (id, price) => {
-//   var tmpId = parseInt(id);
-//   window.market = await new web3.eth.Contract(MarketABI, Market_Addr);
-//   const hex_price = web3.utils.toHex(web3.utils.toWei(price.toString(), 'ether'))
+  try {
+    var userinfo = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    let finalDeposit = parseUserInfo(userinfo);
+    return finalDeposit?.maxDeposit / 1e6 || 0;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
-//   const transactionParameters = {
-//     to: Market_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.market.methods
-//       .updatePriceById(tmpId, hex_price)
-//       .encodeABI(),
-//   };
+export const getRewardInfo = async (_user) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .rewardInfo(_user)
+      .encodeABI(),
+  };
 
-// export const setApprovalForAll = async () => {
-//   window.nft = await new web3.eth.Contract(NFTABI, NFT_Addr);
+  try {
+    var rewardinfo = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    return parseRewardInfo(rewardinfo);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 
-//   const transactionParameters = {
-//     to: NFT_Addr, // Required except during contract publications.
-//     from: window.ethereum.selectedAddress, // must match user's active address.
-//     data: window.nft.methods
-//       .setApprovalForAll(Market_Addr, true)
-//       .encodeABI(),
-//   };
+export const getUserInfo = async (_user) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
-//   try {
-//     const txHash = await window.ethereum.request({
-//       method: "eth_sendTransaction",
-//       params: [transactionParameters],
-//     });
-//     return {
-//       success: true,
-//       status:
-//         "Check out your transaction on Etherscan: ",
-//       tx: "https://testnet.bscscan.com/tx/" + txHash,
-//     };
-//   } catch (error) {
-//     return {
-//       success: false,
-//       status: "Something went wrong: " + error.message,
-//     };
-//   }
-// };
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .userInfo(_user)
+      .encodeABI(),
+  };
+
+  try {
+    var rewardinfo = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    return parseUserInfo(rewardinfo);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export const getCurDay = async () => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .getCurDay()
+      .encodeABI(),
+  };
+
+  try {
+    var curday = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    return parseInt(curday, 16);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export const getMyTeams = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getMyTeamNumbers(_user)
+        .encodeABI(),
+    };
+
+    let teamlength = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    teamlength = parseInt(teamlength, 16);
+    console.log('teamlength', teamlength)
+    let teamlist = [];
+    
+    for (let index = 0; index < teamlength; index++) {
+      transactionParameters = {
+        to: CONTRACT_ADDRESS, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.staking.methods
+          .myTeamUsers(_user, index)
+          .encodeABI(),
+      };
+      let teamaddress = await window.ethereum.request({
+        method: "eth_call",
+        params: [transactionParameters],
+      });
+      teamaddress = parseAddress(teamaddress);
+      console.log('teamaddress',teamaddress)
+      transactionParameters = {
+        to: CONTRACT_ADDRESS, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.staking.methods
+          .userInfo(teamaddress)
+          .encodeABI(),
+      };
+      let _userinformation = await window.ethereum.request({
+        method: "eth_call",
+        params: [transactionParameters],
+      });
+      let _tmpdata = parseUserInfo(_userinformation);
+      _tmpdata.address = teamaddress;
+      teamlist.push(_tmpdata);
+    }
+    return teamlist;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getOrders = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getOrderLength(_user)
+        .encodeABI(),
+    };
+
+    let orderlength = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    orderlength = parseInt(orderlength, 16);
+    console.log('orderlength', orderlength)
+    let orders = [];
+    for (let index = 0; index < orderlength; index++) {
+      transactionParameters = {
+        to: CONTRACT_ADDRESS, // Required except during contract publications.
+        from: window.ethereum.selectedAddress, // must match user's active address.
+        data: window.staking.methods
+          .orderInfos(_user, index)
+          .encodeABI(),
+      };
+      let _order = await window.ethereum.request({
+        method: "eth_call",
+        params: [transactionParameters],
+      });
+      orders.push(parseOrderInfo(_order));
+    }
+    return orders;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getSplit = async (_user) => {
+  window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+  const transactionParameters = {
+    to: CONTRACT_ADDRESS, // Required except during contract publications.
+    from: window.ethereum.selectedAddress, // must match user's active address.
+    data: window.staking.methods
+      .rewardInfo(_user)
+      .encodeABI(),
+  };
+
+  try {
+    var rewardinfo = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    return parseRewardInfo(rewardinfo).split;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export const getFinalOrder = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getOrderLength(_user)
+        .encodeABI(),
+    };
+
+    let orderlength = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    orderlength = parseInt(orderlength, 16);
+    if(orderlength == 0)
+    return null
+    console.log('orderlength', orderlength)
+    transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .orderInfos(_user, orderlength - 1)
+        .encodeABI(),
+    };
+    let _order = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+
+    _order = parseOrderInfo(_order);
+    return _order;
+  } catch (error) {
+    console.log(error)
+    return null;
+  }
+}

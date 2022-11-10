@@ -133,9 +133,9 @@ const SidebarComponent = ({ MenuToggling, setMenuToggling }) => {
                                     <Link to="/team" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'contacts menu ' + (activedPage == "/team" ? 'active' : '')}>My team</div>
                                     </Link>
-                                    <Link to="/" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
+                                    <a href="/assets/doc.pdf" className="text-gray-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-5">
                                         <div className={'setting menu ' + (activedPage == "/" ? 'active' : '')}>White Paper</div>
-                                    </Link>
+                                    </a>
                                 </nav>
                             </div>
                         </div>
