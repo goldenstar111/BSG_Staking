@@ -6,7 +6,7 @@ import {
     _transferBySplit,
 } from "../../components/interact";
 
-const GrowthPage = () => {
+const LockUSDTPage = () => {
     const [walletAddress, setWallet] = useState("");
     const [split, setSplit] = useState(0);
     const [receiver, setReceiver] = useState("");
@@ -47,7 +47,7 @@ const GrowthPage = () => {
             <input className="bg-white py-1 px-2 w-full" type={"number"} defaultValue={parseFloat(split) / 1e6} disabled></input>
             <p className="py-2 font-semibold">Amount</p>
             <input type={"number"} defaultValue={50} min={0} max={parseFloat(split) / 1e6} step={10} className="bg-white py-1 px-2 w-full" ></input>
-            <p className="text-xs">The ratio of 30% for Deposit and The ratio of 10 for Transfer</p>
+            <p className="text-xs">The ratio of 50% for Deposit and The ratio of $10 for Transfer</p>
             <p className="py-2 font-semibold">Receiver address</p>
             <input type="text" onChange={(ev)=>setReceiver(ev.target.value)} className="py-1 px-2 w-full" placeholder="Please type receiver address"></input>
             <div className="d-flex flex-col sm:flex-row">
@@ -58,4 +58,4 @@ const GrowthPage = () => {
     )
 }
 
-export default GrowthPage;
+export default LockUSDTPage;

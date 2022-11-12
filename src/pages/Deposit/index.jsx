@@ -103,16 +103,16 @@ const DepositPage = () => {
                     <p>Minimum deposit $100. A ratio of $100 max $2500</p>
                     <div className="border p-4 w-full text-sm">
                         <div className="grid grid-cols-6 py-1">
-                            <p>100 USDT<br />Deposit</p>
+                            <p>{depositAmount} USDT<br />Deposit</p>
                             <p>+</p>
                             <p>15%<br />Each Cycle</p>
                             <p>=</p>
-                            <p className="col-span-2">115 USDT<br />Deposit and Interest</p>
+                            <p className="col-span-2">{Math.round(depositAmount * 1.15)} USDT<br />Deposit and Interest</p>
                         </div>
                         <p className="py-1">more than 15 Day per cycle. 15% per cycle</p>
                         <p className="py-1">You will have to redeposit every time after each cycle.
                             It will have to be either the same amount or bigger amount.
-                            Every 1 cycle you deposit 1 extra Day will be added without interest. Maximum 65 Days.
+                            Every 1 cycle you deposit 1 extra Day will be added without interest. Maximum 50 Days.
                         </p>
                         {
                             (walletAddress.length === 0 || !isRegister) &&

@@ -5,15 +5,17 @@ import {
     getRegistered,
     _withdraw,
     getClaimable,
-    getRewardInfo
+    getRewardInfo,
+    getActiveTeamReward,
+    getReferralReward
 } from "../../components/interact";
-import { Link } from 'react-router-dom';
 
 const WithdrawPage = () => {
     const [walletAddress, setWallet] = useState("");
     const [isRegister, setRegister] = useState(false);
     const [claimable, setClaimable] = useState(false);
     const [reward, setReward] = useState(null);
+    const [activeTeamReward, setActiveTeamReward] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -35,10 +37,13 @@ const WithdrawPage = () => {
             setClaimable(_claimable);
             let _reward = await getRewardInfo(walletAddress);
             setReward(_reward);
+            let _activeTeamReward = await getReferralReward(walletAddress);
+            setActiveTeamReward(_activeTeamReward);
         } else {
             setRegister(false);
             setClaimable(false);
             setReward(null);
+            setActiveTeamReward(0);
         }
     }
 
@@ -63,12 +68,12 @@ const WithdrawPage = () => {
                             <p className="text-right py-1">${reward?.capitals/1e6 || 0} USDT</p>
                             <p className="py-1">Cycle Reward</p>
                             <p className="text-right py-1">${reward?.statics/1e6 || 0} USDT</p>
-                            <p className="py-1">Referral Reward</p>
-                            <p className="text-right py-1">${reward?.levelReleased/1e6 || 0} USDT</p>
+                            <p className="py-1">Referral Reward(also Diamond Reward)</p>
+                            <p className="text-right py-1">${activeTeamReward || 0} USDT</p>
                             <p className="py-1">Luck Reward for 1k</p>
                             <p className="text-right py-1">${reward?.more1k/1e6 || 0} USDT</p>
-                            <p className="py-1">Infinity Reward</p>
-                            <p className="text-right py-1">${reward?.infinityBonusReleased/1e6 || 0} USDT</p>
+                            {/* <p className="py-1">Infinity Reward</p>
+                            <p className="text-right py-1">${reward?.infinityBonusReleased/1e6 || 0} USDT</p> */}
                             <p className="py-1">Withdraw</p>
                             <p className="text-right py-1">70%</p>
                             <p className="py-1">Lock</p>

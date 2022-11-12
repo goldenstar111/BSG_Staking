@@ -664,7 +664,6 @@ export const getFinalOrder = async (_user) => {
   }
 }
 
-
 export const getDepositors = async () => {
   try {
     window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
@@ -699,6 +698,162 @@ export const getDepositors = async () => {
       Depositors.push(parseAddress(_user));
     }
     return Depositors;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getActiveTeamReward = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getActiveTeamReward(_user)
+        .encodeABI(),
+    };
+
+    let _activeReward = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _activeReward = parseInt(_activeReward, 16) / 1e6;
+    return _activeReward;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const checkDiamondMembership = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .checkDiamondMembership(_user)
+        .encodeABI(),
+    };
+
+    let _activeReward = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _activeReward = parseInt(_activeReward, 16);
+    return _activeReward;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+
+export const getDiamondReward = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getDiamondReward(_user)
+        .encodeABI(),
+    };
+
+    let _activeReward = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _activeReward = parseInt(_activeReward, 16) / 1e6;
+    return _activeReward;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getReferralReward = async (_user) => {
+  let _membership = await checkDiamondMembership(_user);
+  let _reward = 0;
+  if(_membership >= 2){
+    _reward = await getDiamondReward(_user);
+  }else{
+    _reward = await getActiveTeamReward(_user);
+  }
+  return _reward;
+}
+
+export const getIncomePoolforDiamond = async () => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .diamondIncomePool()
+        .encodeABI(),
+    };
+
+    let _pool = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _pool = parseInt(_pool, 16) / 1e6;
+    return _pool;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getIncomePoolfor1k = async () => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .more1kIncomePool()
+        .encodeABI(),
+    };
+
+    let _pool = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _pool = parseInt(_pool, 16) / 1e6;
+    return _pool;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getIncomePoolforBooster = async () => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .boosterIncomePool()
+        .encodeABI(),
+    };
+
+    let _pool = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    _pool = parseInt(_pool, 16) / 1e6;
+    return _pool;
   } catch (error) {
     console.log(error)
     return [];

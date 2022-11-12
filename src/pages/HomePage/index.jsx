@@ -11,7 +11,10 @@ import {
     getUserInfo,
     getRewardInfo,
     getCurDay,
-    getFinalOrder
+    getFinalOrder,
+    getIncomePoolforDiamond,
+    getIncomePoolfor1k,
+    getIncomePoolforBooster
 } from "../../components/interact";
 
 const HomePage = () => {
@@ -24,6 +27,9 @@ const HomePage = () => {
     const [curday, setCurday] = useState(1);
     const [finalOrder, setFinalOrder] = useState(null);
     const [remaining, setRemaining] = useState(0);
+    const [income4diamond, setIncome4diamond] = useState(0);
+    const [income41k, setIncome41k] = useState(0);
+    const [income4booster, setIncome4booster] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -51,6 +57,12 @@ const HomePage = () => {
             setRewardInfo(_reward);
             let _finalOrder = await getFinalOrder(walletAddress);
             setFinalOrder(_finalOrder);
+            let _4diamond  =await getIncomePoolforDiamond();
+            setIncome4diamond(_4diamond);
+            let _41k  =await getIncomePoolfor1k();
+            setIncome41k(_41k);
+            let _4booster  =await getIncomePoolforBooster();
+            setIncome4booster(_4booster);
             let _curday = await getCurDay();
             setCurday(_curday + 1);
 
@@ -72,6 +84,9 @@ const HomePage = () => {
             setRewardInfo(null);
             setFinalOrder(null);
             setCurday(1);
+            setIncome4diamond(0);
+            setIncome41k(0);
+            setIncome4diamond(0);
         }
     }
 
@@ -194,26 +209,26 @@ const HomePage = () => {
                     </p>
                 </div>
                 <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
-                    <i className="fa-solid fa-user-doctor text-4xl"></i>
+                    <i className="fa-solid fa-sack-dollar text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
-                        <span>Current Cycle Number</span>
-                        <span>{rewardInfo?.cycleNumber < 2 ? 0 : rewardInfo?.cycleNumber - 1}</span>
-                    </p>
-                </div>
-                {/* <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
-                    <i className="fa-solid fa-user-doctor text-4xl"></i>
-                    <p className='d-flex flex-col px-4'>
-                        <span>Current Cycle Number</span>
-                        <span>{rewardInfo?.cycleNumber < 2 ? 0 : rewardInfo?.cycleNumber - 1}</span>
+                        <span>Income Pool for diamond</span>
+                        <span>{income4diamond || 0}</span>
                     </p>
                 </div>
                 <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
-                    <i className="fa-solid fa-user-doctor text-4xl"></i>
+                    <i className="fa-solid fa-sack-dollar text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
-                        <span>Current Cycle Number</span>
-                        <span>{rewardInfo?.cycleNumber < 2 ? 0 : rewardInfo?.cycleNumber - 1}</span>
+                        <span>Income Pool for 1k depositors</span>
+                        <span>{income41k || 0}</span>
                     </p>
-                </div> */}
+                </div>
+                <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
+                    <i className="fa-solid fa-sack-dollar text-4xl"></i>
+                    <p className='d-flex flex-col px-4'>
+                        <span>Income Pool for booster</span>
+                        <span>{income4booster || 0}</span>
+                    </p>
+                </div>
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 mb-4'>

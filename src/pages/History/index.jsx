@@ -76,6 +76,19 @@ const HistoryPage = () => {
         }
     }
 
+    const checkOrderStatus = (unlock, status) => {
+        if (status) {
+            return "Completed"
+        } else {
+            let _now = new Date();
+            if (unlock * 1000 > _now) {
+                return "Incompleted"
+            } else {
+                return "Awaiting Deposit"
+            }
+        }
+    }
+
     return (
         <div className="mt-12 p-2 text-gray-600 dark:text-gray-300">
             <div className='p-4 bg-gray-100 dark:bg-gray-700 rounded-md mb-4'>
@@ -121,7 +134,7 @@ const HistoryPage = () => {
                                     <div>$ {item.amount / 1e6 || 0}</div>
                                     <div>{item.start ? calDate(item.start) : "No Information"}</div>
                                     <div>{item.unfreeze ? calDate(item.unfreeze) : "No Information"}</div>
-                                    <div>{item.isClaimed ? "Complete" : "InComplete"}</div>
+                                    <div>{checkOrderStatus(item.unfreeze, item.isClaimed)}</div>
                                 </>
                             ))
                         )
