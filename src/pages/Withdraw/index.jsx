@@ -6,8 +6,9 @@ import {
     _withdraw,
     getClaimable,
     getRewardInfo,
-    getActiveTeamReward,
-    getReferralReward
+    getActiveDirectReward,
+    getReferralReward,
+    _calCurStaticRewards
 } from "../../components/interact";
 
 const WithdrawPage = () => {
@@ -16,6 +17,7 @@ const WithdrawPage = () => {
     const [claimable, setClaimable] = useState(false);
     const [reward, setReward] = useState(null);
     const [activeTeamReward, setActiveTeamReward] = useState(0);
+    const [cycleReward, setCycleReward] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -39,11 +41,14 @@ const WithdrawPage = () => {
             setReward(_reward);
             let _activeTeamReward = await getReferralReward(walletAddress);
             setActiveTeamReward(_activeTeamReward);
+            let _cycleReward = await _calCurStaticRewards(walletAddress);
+            setCycleReward(_cycleReward);
         } else {
             setRegister(false);
             setClaimable(false);
             setReward(null);
             setActiveTeamReward(0);
+            setCycleReward(0);
         }
     }
 
@@ -67,21 +72,23 @@ const WithdrawPage = () => {
                             <p className="py-1">Deposit Amount</p>
                             <p className="text-right py-1">${reward?.capitals/1e6 || 0} USDT</p>
                             <p className="py-1">Cycle Reward</p>
-                            <p className="text-right py-1">${reward?.statics/1e6 || 0} USDT</p>
-                            <p className="py-1">Referral Reward(also Diamond Reward)</p>
-                            <p className="text-right py-1">${activeTeamReward || 0} USDT</p>
+                            <p className="text-right py-1">${cycleReward/1e6 || 0} USDT</p>
+                            <p className="py-1">1st Level Reward</p>
+                            <p className="text-right py-1">${activeTeamReward/1e6 || 0} USDT</p>
+                            <p className="py-1">2-5 Level Reward</p>
+                            <p className="text-right py-1">${activeTeamReward/1e6 || 0} USDT</p>
+                            <p className="py-1">6-12 Level Reward</p>
+                            <p className="text-right py-1">${activeTeamReward/1e6 || 0} USDT</p>
                             <p className="py-1">Luck Reward for 1k</p>
                             <p className="text-right py-1">${reward?.more1k/1e6 || 0} USDT</p>
-                            {/* <p className="py-1">Infinity Reward</p>
-                            <p className="text-right py-1">${reward?.infinityBonusReleased/1e6 || 0} USDT</p> */}
                             <p className="py-1">Withdraw</p>
                             <p className="text-right py-1">70%</p>
                             <p className="py-1">Lock</p>
                             <p className="text-right py-1">30%</p>
                             <p className="py-1">Available withdrawal</p>
                             <p className="text-right py-1">
-                                ${(parseInt(reward?.capitals)+(parseInt(reward?.statics)+parseInt(reward?.levelReleased)+
-                                parseInt(reward?.more1k)+parseInt(reward?.infinityBonusReleased))*0.7)/1e6 || 0} USDT</p>
+                                ${(parseInt(reward?.capitals)+(cycleReward+activeTeamReward+
+                                parseInt(reward?.more1k)))/1e6 || 0} USDT</p>
                         </div>
                         {
                             (walletAddress.length === 0 || !isRegister) &&

@@ -46,6 +46,13 @@ const parseOrderInfo = (hexdata) => {
   return data;
 }
 
+const parseReward = (hexdata) => {
+  let data = {};
+  data.withdraw = parseInt(hexdata.substring(2, 66), 16);
+  data.lock = parseInt(hexdata.substring(67, 130), 16);
+  return data;
+}
+
 const parseAddress = (hexdata) => {
   return "0x" + hexdata.substring(26, 66);
 }
@@ -430,7 +437,7 @@ export const getLastDeposit = async (_user) => {
       params: [transactionParameters],
     });
     let finalDeposit = parseUserInfo(userinfo);
-    return finalDeposit?.maxDeposit / 1e6 || 0;
+    return finalDeposit?.maxDeposit || 0;
   } catch (error) {
     console.log(error);
     return false;
@@ -704,7 +711,7 @@ export const getDepositors = async () => {
   }
 }
 
-export const getActiveTeamReward = async (_user) => {
+export const getActiveDirectReward = async (_user) => {
   try {
     window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
 
@@ -712,7 +719,7 @@ export const getActiveTeamReward = async (_user) => {
       to: CONTRACT_ADDRESS, // Required except during contract publications.
       from: window.ethereum.selectedAddress, // must match user's active address.
       data: window.staking.methods
-        .getActiveTeamReward(_user)
+        .getActiveDirectReward(_user)
         .encodeABI(),
     };
 
@@ -720,7 +727,7 @@ export const getActiveTeamReward = async (_user) => {
       method: "eth_call",
       params: [transactionParameters],
     });
-    _activeReward = parseInt(_activeReward, 16) / 1e6;
+    _activeReward = parseInt(_activeReward, 16);
     return _activeReward;
   } catch (error) {
     console.log(error)
@@ -769,7 +776,7 @@ export const getDiamondReward = async (_user) => {
       method: "eth_call",
       params: [transactionParameters],
     });
-    _activeReward = parseInt(_activeReward, 16) / 1e6;
+    _activeReward = parseInt(_activeReward, 16);
     return _activeReward;
   } catch (error) {
     console.log(error)
@@ -783,7 +790,7 @@ export const getReferralReward = async (_user) => {
   if(_membership >= 2){
     _reward = await getDiamondReward(_user);
   }else{
-    _reward = await getActiveTeamReward(_user);
+    _reward = await getActiveDirectReward(_user);
   }
   return _reward;
 }
@@ -804,7 +811,7 @@ export const getIncomePoolforDiamond = async () => {
       method: "eth_call",
       params: [transactionParameters],
     });
-    _pool = parseInt(_pool, 16) / 1e6;
+    _pool = parseInt(_pool, 16);
     return _pool;
   } catch (error) {
     console.log(error)
@@ -828,7 +835,7 @@ export const getIncomePoolfor1k = async () => {
       method: "eth_call",
       params: [transactionParameters],
     });
-    _pool = parseInt(_pool, 16) / 1e6;
+    _pool = parseInt(_pool, 16);
     return _pool;
   } catch (error) {
     console.log(error)
@@ -852,8 +859,102 @@ export const getIncomePoolforBooster = async () => {
       method: "eth_call",
       params: [transactionParameters],
     });
-    _pool = parseInt(_pool, 16) / 1e6;
+    _pool = parseInt(_pool, 16);
     return _pool;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getMyTeamNumbers = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getMyTeamNumbers(_user)
+        .encodeABI(),
+    };
+
+    let teamlength = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    teamlength = parseInt(teamlength, 16);
+    return teamlength;
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const _calCurStaticRewards = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        ._calCurStaticRewards(_user)
+        .encodeABI(),
+    };
+
+    let reward = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    reward = parseReward(reward);
+    return parseInt((reward.withdraw + reward.lock));
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getMember = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getMember(_user)
+        .encodeABI(),
+    };
+
+    let reward = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    return parseInt(reward, 16);
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}
+
+export const getActiveDirectNumbers = async (_user) => {
+  try {
+    window.staking = await new web3.eth.Contract(AppContract.abi, CONTRACT_ADDRESS);
+
+    let transactionParameters = {
+      to: CONTRACT_ADDRESS, // Required except during contract publications.
+      from: window.ethereum.selectedAddress, // must match user's active address.
+      data: window.staking.methods
+        .getActiveDirectNumbers(_user)
+        .encodeABI(),
+    };
+
+    let reward = await window.ethereum.request({
+      method: "eth_call",
+      params: [transactionParameters],
+    });
+    return parseInt(reward, 16);
   } catch (error) {
     console.log(error)
     return [];

@@ -14,7 +14,9 @@ import {
     getFinalOrder,
     getIncomePoolforDiamond,
     getIncomePoolfor1k,
-    getIncomePoolforBooster
+    getIncomePoolforBooster,
+    getMember,
+    getActiveDirectNumbers
 } from "../../components/interact";
 
 const HomePage = () => {
@@ -30,6 +32,8 @@ const HomePage = () => {
     const [income4diamond, setIncome4diamond] = useState(0);
     const [income41k, setIncome41k] = useState(0);
     const [income4booster, setIncome4booster] = useState(0);
+    const [membership, setMembership] = useState(0);
+    const [activeDirectNum, setActiveDirectNum] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -63,10 +67,13 @@ const HomePage = () => {
             setIncome41k(_41k);
             let _4booster  =await getIncomePoolforBooster();
             setIncome4booster(_4booster);
+            let _membership = await getMember(walletAddress);
+            setMembership(_membership);
+            let _directNum = await getActiveDirectNumbers(walletAddress);
+            setActiveDirectNum(_directNum);
             let _curday = await getCurDay();
             setCurday(_curday + 1);
-
-            let _remaining = 0;
+            
             let _now = new Date();
             let _end = _finalOrder ? _finalOrder.unfreeze : 0;
             if (_end > 0) {
@@ -87,6 +94,8 @@ const HomePage = () => {
             setIncome4diamond(0);
             setIncome41k(0);
             setIncome4diamond(0);
+            setMembership(0);
+            setActiveDirectNum(0);
         }
     }
 
@@ -97,17 +106,11 @@ const HomePage = () => {
         return value;
     }
 
-    const getMembership = (member) => {
-        if (member == 0) {
+    const getMembership = (_membership) => {
+        if (_membership == 0) {
             return "Normal"
-        } else if (member == 1) {
+        } else if (_membership == 1) {
             return "Booster"
-        } else if (member == 2) {
-            return "Diamond"
-        } else if (member == 3) {
-            return "Blue Diamond"
-        } else if (member == 4) {
-            return "Crown Diamond"
         }
     }
 
@@ -168,8 +171,17 @@ const HomePage = () => {
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-stopwatch"></i>
-                    <span className='px-2'>Cycle Status: {finalOrder?.unfreeze > 0 ? calCycleStatus(finalOrder?.unfreeze) : "..."}</span>
+                    <span className='px-2'>Cycle Status: {remaining ? "Active" : "InActive"}</span>
                 </p>
+            </div>
+
+            <div className='border-t border-sky-400 p-2 mb-4'>
+                <p className='text-sky-400'>
+                    <i className="fa-solid fa-stopwatch"></i>
+                    Manager Reward Time Remaining
+                </p>
+                <p>D : H : M : S</p>
+                <p>{beautifyTime(remaining)}</p>
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 py-2 mb-4'>
@@ -184,7 +196,7 @@ const HomePage = () => {
                     <i className="fa-solid fa-users text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>My Team</span>
-                        <span>{userInfo?.teamNum || 0}</span>
+                        <span>{activeDirectNum || 0}</span>
                     </p>
                 </div>
                 <div className='d-flex border border-fuchsia-400 py-4 px-6 items-center'>
@@ -205,28 +217,28 @@ const HomePage = () => {
                     <i className="fa-solid fa-user-nurse text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>Membership</span>
-                        <span>{getMembership(userInfo?.membership || 0)}</span>
+                        <span>{getMembership(membership || 0)}</span>
                     </p>
                 </div>
                 <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
                     <i className="fa-solid fa-sack-dollar text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>Income Pool for diamond</span>
-                        <span>{income4diamond || 0}</span>
+                        <span>{income4diamond/1e6 || 0}</span>
                     </p>
                 </div>
                 <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
                     <i className="fa-solid fa-sack-dollar text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>Income Pool for 1k depositors</span>
-                        <span>{income41k || 0}</span>
+                        <span>{income41k/1e6 || 0}</span>
                     </p>
                 </div>
                 <div className='d-flex border border-purple-400 py-4 px-6 items-center'>
                     <i className="fa-solid fa-sack-dollar text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>Income Pool for booster</span>
-                        <span>{income4booster || 0}</span>
+                        <span>{income4booster/1e6 || 0}</span>
                     </p>
                 </div>
             </div>
@@ -254,27 +266,6 @@ const HomePage = () => {
                 <p>Referral : {referral}</p>
                 <p>My address : {walletAddress}</p>
             </div>
-            {/* <div className='p-2 bg-gray-100 dark:bg-gray-700 mb-4'>
-                <p>Lastest Transactions</p>
-            </div> */}
-
-            <div className='border-t border-sky-400 p-2 mb-4'>
-                <p className='text-sky-400'>
-                    <i className="fa-solid fa-stopwatch"></i>
-                    Manager Reward Time Remaining
-                </p>
-                <p>D : H : M : S</p>
-                <p>{beautifyTime(remaining)}</p>
-            </div>
-
-            {/* <div className='border-t border-pink-400 p-2 mb-4'>
-                <p className='text-sky-400'>
-                    <i className="fa-solid fa-stopwatch"></i>
-                    Global Co-Ordinator Pool Reward Time Remaning
-                </p>
-                <p>Hours Minutes Seconds</p>
-                <p>00: 00: 00</p>
-            </div> */}
         </main>
     )
 }

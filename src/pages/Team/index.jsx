@@ -5,7 +5,8 @@ import {
     getRewardInfo,
     getCurDay,
     getMyTeams,
-    getFinalOrder
+    getFinalOrder,
+    getMyTeamNumbers
 } from "../../components/interact";
 import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } from "../../config";
 
@@ -16,6 +17,7 @@ const TeamPage = () => {
     const [curday, setCurday] = useState(1);
     const [teamList, setTeamList] = useState([]);
     const [finalOrder, setFinalOrder] = useState(null);
+    const [teamNum, setTeamNum] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -41,12 +43,15 @@ const TeamPage = () => {
             setTeamList(_teamlist);
             let _finalOrder = await getFinalOrder(walletAddress);
             setFinalOrder(_finalOrder);
+            let _teamNum = await getMyTeamNumbers(walletAddress);
+            setTeamNum(_teamNum);
         } else {
             setUserInfo(null);
             setRewardInfo(null);
             setCurday(1);
             setTeamList([]);
             setFinalOrder(null);
+            setTeamNum(0);
         }
     }
 
@@ -125,7 +130,7 @@ const TeamPage = () => {
                     <i className="fa-solid fa-users text-4xl"></i>
                     <p className='d-flex flex-col px-4'>
                         <span>Team Numbers</span>
-                        <span>{userInfo?.teamNum || 0}</span>
+                        <span>{teamNum || 0}</span>
                     </p>
                 </div>
                 <div className='d-flex border border-fuchsia-400 py-4 px-6 items-center'>

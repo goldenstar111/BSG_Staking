@@ -44,9 +44,9 @@ const LockUSDTPage = () => {
         <div className="mt-14 p-4 mx-2 text-gray-600 bg-gray-100 rounded-md border-t border-gray-400">
             <p className="text-xl"> Lock USDT</p>
             <p className="py-2 font-semibold">Locked USDT</p>
-            <input className="bg-white py-1 px-2 w-full" type={"number"} defaultValue={parseFloat(split) / 1e6} disabled></input>
+            <input className="bg-white py-1 px-2 w-full" type={"number"} value={parseFloat(split) / 1e6} disabled></input>
             <p className="py-2 font-semibold">Amount</p>
-            <input type={"number"} defaultValue={50} min={0} max={parseFloat(split) / 1e6} step={10} className="bg-white py-1 px-2 w-full" ></input>
+            <input type={"number"} defaultValue={50} min={0} max={parseFloat(split) / 1e6} step={50} className="bg-white py-1 px-2 w-full" ></input>
             <p className="text-xs">The ratio of 50% for Deposit and The ratio of $10 for Transfer</p>
             <p className="py-2 font-semibold">Receiver address</p>
             <input type="text" onChange={(ev)=>setReceiver(ev.target.value)} className="py-1 px-2 w-full" placeholder="Please type receiver address"></input>

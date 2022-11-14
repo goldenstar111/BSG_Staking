@@ -98,7 +98,7 @@ const DepositPage = () => {
                         defaultValue={100} step={100} min={100} max={2500}
                         onChange={(ev) => setDepositAmount(parseInt(ev.target.value))} />
                     <p>The Lastest deposit unlock date is {finalOrder ? calDate(finalOrder.unfreeze) : "..."}</p>
-                    <p>The Lastest deposit amount is ${finalAmount || 0}</p>
+                    <p>The Lastest deposit amount is ${parseInt(finalAmount/1e6) || 0}</p>
                     <p>Current Time is {(new Date).toLocaleString()}</p>
                     <p>Minimum deposit $100. A ratio of $100 max $2500</p>
                     <div className="border p-4 w-full text-sm">

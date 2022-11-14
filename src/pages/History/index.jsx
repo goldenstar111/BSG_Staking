@@ -18,6 +18,7 @@ const HistoryPage = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [rewardInfo, setRewardInfo] = useState(null);
     const [curday, setCurday] = useState(1);
+    const [remaining, setRemaining] = useState(0);
     const [orderlist, setOrderList] = useState([]);
     const [finalOrder, setFinalOrder] = useState(null);
 
@@ -45,12 +46,22 @@ const HistoryPage = () => {
             setOrderList(_orders);
             let _finalOrder = await getFinalOrder(walletAddress);
             setFinalOrder(_finalOrder);
+            let _now = new Date();
+            let _end = _finalOrder ? _finalOrder.unfreeze : 0;
+            if (_end > 0) {
+                _now = parseInt(_now / 1e3);
+                _end = parseInt(_end);
+                if (_now < _end) {
+                    setRemaining(_end - _now);
+                }
+            }
         } else {
             setUserInfo(null);
             setRewardInfo(null);
             setCurday(1);
             setOrderList([]);
             setFinalOrder(null);
+            setRemaining(0);
         }
     }
 
@@ -89,10 +100,16 @@ const HistoryPage = () => {
         }
     }
 
+    setTimeout(() => {
+        if (remaining > 0) {
+            setRemaining(remaining - 1);
+        }
+    }, 1000)
+
     return (
         <div className="mt-12 p-2 text-gray-600 dark:text-gray-300">
             <div className='p-4 bg-gray-100 dark:bg-gray-700 rounded-md mb-4'>
-                <a href={'https://mumbai.polygonscan.com/address/' + CONTRACT_ADDRESS}
+            <a href={'https://mumbai.polygonscan.com/address/' + CONTRACT_ADDRESS}
                     target={"_blank"}
                     className="text-sky-400 py-1"
                 >
@@ -113,7 +130,7 @@ const HistoryPage = () => {
                 </p>
                 <p className='py-1'>
                     <i className="fa-solid fa-stopwatch"></i>
-                    <span className='px-2'>Cycle Status: {finalOrder?.unfreeze > 0 ? calCycleStatus(finalOrder?.unfreeze) : "..."}</span>
+                    <span className='px-2'>Cycle Status: {remaining ? "Active" : "InActive"}</span>
                 </p>
             </div>
 
@@ -125,7 +142,7 @@ const HistoryPage = () => {
                     <div>Deposit Time</div>
                     <div>Unlock Time</div>
                     <div>Order Status</div>
-                    {
+                    {/* {
                         orderlist && orderlist.length > 0 &&
                         (
                             orderlist.map((item, index) => (
@@ -138,6 +155,16 @@ const HistoryPage = () => {
                                 </>
                             ))
                         )
+                    } */}
+                    {
+                        finalOrder &&
+                        <>
+                            <div>{finalOrder.cycle || 0}</div>
+                            <div>$ {finalOrder.amount / 1e6 || 0}</div>
+                            <div>{finalOrder.start ? calDate(finalOrder.start) : "No Information"}</div>
+                            <div>{finalOrder.unfreeze ? calDate(finalOrder.unfreeze) : "No Information"}</div>
+                            <div>{checkOrderStatus(finalOrder.unfreeze, finalOrder.isClaimed)}</div>
+                        </>
                     }
                 </div>
             </div>
