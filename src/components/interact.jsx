@@ -2,6 +2,7 @@ import AppContract from "../abi/BSG.json";
 import USDTContract from "../abi/USDT.json";
 import web3 from "../ethereum/web3";
 import { ethers } from 'ethers';
+import Swal from "sweetalert2";
 
 import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } from "../config";
 
@@ -59,6 +60,14 @@ const parseAddress = (hexdata) => {
 
 export const connectWallet = async () => {
   if (window.ethereum) {
+    if(window.ethereum.chainId != 0x13881){
+      // alert('Please switch network to mumbai polygon testnet');
+      Swal.fire('Please switch network to mumbai polygon testnet');
+      return {
+        address : "",
+        status: "Wrong Network"
+      }
+    }
     try {
       const addressArray = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -235,7 +244,7 @@ export const _depositBySplit = async (amount) => {
     to: CONTRACT_ADDRESS, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: window.staking.methods
-      .depositBySplit(amount)
+      .depositBylockusdt(amount)
       .encodeABI(),
   };
 
@@ -258,7 +267,7 @@ export const _transferBySplit = async (_user, amount) => {
     to: CONTRACT_ADDRESS, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: window.staking.methods
-      .transferBySplit(_user, amount)
+      .transferBylockusdt(_user, amount)
       .encodeABI(),
   };
 
@@ -907,6 +916,7 @@ export const _calCurStaticRewards = async (_user) => {
       method: "eth_call",
       params: [transactionParameters],
     });
+
     reward = parseReward(reward);
     return parseInt((reward.withdraw + reward.lock));
   } catch (error) {

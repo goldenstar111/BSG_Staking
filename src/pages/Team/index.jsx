@@ -6,7 +6,8 @@ import {
     getCurDay,
     getMyTeams,
     getFinalOrder,
-    getMyTeamNumbers
+    getMyTeamNumbers,
+    getMember,
 } from "../../components/interact";
 import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } from "../../config";
 
@@ -18,6 +19,7 @@ const TeamPage = () => {
     const [teamList, setTeamList] = useState([]);
     const [finalOrder, setFinalOrder] = useState(null);
     const [teamNum, setTeamNum] = useState(0);
+    const [membership, setMembership] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -45,6 +47,8 @@ const TeamPage = () => {
             setFinalOrder(_finalOrder);
             let _teamNum = await getMyTeamNumbers(walletAddress);
             setTeamNum(_teamNum);
+            let _membership = await getMember(walletAddress);
+            setMembership(_membership);
         } else {
             setUserInfo(null);
             setRewardInfo(null);
@@ -52,13 +56,14 @@ const TeamPage = () => {
             setTeamList([]);
             setFinalOrder(null);
             setTeamNum(0);
+            setMembership(0);
         }
     }
-
+    
     const beautify = (addr) => {
         var value, length;
         length = addr.length;
-        value = addr.slice(0, 8) + '...' + addr.slice(length - 6, length);
+        value = addr.slice(0, 10) + '...' + addr.slice(length - 8, length);
         return value;
     }
 
@@ -165,22 +170,22 @@ const TeamPage = () => {
 
             <div className="bg-gray-100 p-4 border-t border-gray-400 rounded-md">
                 <p className="text-lg py-2">My Team</p>
-                <div className="grid grid-cols-6 gap-2">
+                <div className="grid grid-cols-5 gap-2">
                     <div className="col-span-2">Address</div>
                     <div>Max Deposit</div>
                     <div>Total Deposit</div>
                     <div>Total Revenue</div>
-                    <div>Membership</div>
+                    {/* <div>Membership</div> */}
                     {
                         teamList && teamList?.length > 0 &&
                         (
                             teamList.map((item, index) => (
                                 <>
-                                    <div className="col-span-2">{item.address ? beautify(item.address) : "..."}</div>
+                                    <a href={`https://mumbai.polygonscan.com/address/${item.address}`} target="_blank" className="col-span-2">{item.address ? beautify(item.address) : "..."}</a>
                                     <div>$ {item.maxDeposit / 1e6 || 0}</div>
                                     <div>$ {item.totalDeposit / 1e6 || 0}</div>
                                     <div>$ {item.totalRevenue / 1e6 || 0}</div>
-                                    <div>{getMembership(item.membership || 0)}</div>
+                                    {/* <div>{getMembership(item.membership || 0)}</div> */}
                                 </>
                             ))
                         )

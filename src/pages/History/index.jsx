@@ -95,7 +95,7 @@ const HistoryPage = () => {
             if (unlock * 1000 > _now) {
                 return "Incompleted"
             } else {
-                return "Awaiting Deposit"
+                return "Awaiting Redeposit"
             }
         }
     }

@@ -9,6 +9,7 @@ import {
 const LockUSDTPage = () => {
     const [walletAddress, setWallet] = useState("");
     const [split, setSplit] = useState(0);
+    const [amount, setAmount] = useState(50);
     const [receiver, setReceiver] = useState("");
 
     useEffect(() => {
@@ -33,11 +34,11 @@ const LockUSDTPage = () => {
     }
 
     const depositBySplit = async () => {
-        let result = await _depositBySplit(split);
+        let result = await _depositBySplit(amount);
     }
 
     const transferBySplit = async () => {
-        let result = await _transferBySplit(receiver, split);
+        let result = await _transferBySplit(receiver, amount);
     }
 
     return (
@@ -46,7 +47,7 @@ const LockUSDTPage = () => {
             <p className="py-2 font-semibold">Locked USDT</p>
             <input className="bg-white py-1 px-2 w-full" type={"number"} value={parseFloat(split) / 1e6} disabled></input>
             <p className="py-2 font-semibold">Amount</p>
-            <input type={"number"} defaultValue={50} min={0} max={parseFloat(split) / 1e6} step={50} className="bg-white py-1 px-2 w-full" ></input>
+            <input type={"number"} onChange={(ev) => setAmount(parseInt(ev.target.value))} defaultValue={50} min={0} max={parseFloat(split) / 1e6} step={50} className="bg-white py-1 px-2 w-full" ></input>
             <p className="text-xs">The ratio of 50% for Deposit and The ratio of $10 for Transfer</p>
             <p className="py-2 font-semibold">Receiver address</p>
             <input type="text" onChange={(ev)=>setReceiver(ev.target.value)} className="py-1 px-2 w-full" placeholder="Please type receiver address"></input>

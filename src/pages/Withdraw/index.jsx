@@ -8,7 +8,9 @@ import {
     getRewardInfo,
     getActiveDirectReward,
     getReferralReward,
-    _calCurStaticRewards
+    _calCurStaticRewards,
+    getDiamondReward,
+    checkDiamondMembership
 } from "../../components/interact";
 
 const WithdrawPage = () => {
@@ -18,6 +20,9 @@ const WithdrawPage = () => {
     const [reward, setReward] = useState(null);
     const [activeTeamReward, setActiveTeamReward] = useState(0);
     const [cycleReward, setCycleReward] = useState(0);
+    const [membership, setMembership] = useState(0);
+    const [level25Reward, setLevel25Reward] = useState(0);
+    const [level612Reward, setLevel612Reward] = useState(0);
 
     useEffect(() => {
         const getExistingWallet = async () => {
@@ -43,12 +48,19 @@ const WithdrawPage = () => {
             setActiveTeamReward(_activeTeamReward);
             let _cycleReward = await _calCurStaticRewards(walletAddress);
             setCycleReward(_cycleReward);
+            let _membership = await checkDiamondMembership(walletAddress);
+            setMembership(_membership);
+            await level2to5Reward();
+            await level6to12Reward();
         } else {
             setRegister(false);
             setClaimable(false);
             setReward(null);
             setActiveTeamReward(0);
             setCycleReward(0);
+            setMembership(0);
+            setLevel25Reward(0);
+            setLevel612Reward(0);
         }
     }
 
@@ -57,6 +69,40 @@ const WithdrawPage = () => {
         if(result){
             setClaimable(false)
             setReward(null);
+            setCycleReward(0);
+            setActiveTeamReward(0);
+            setLevel25Reward(0);
+            setLevel612Reward(0);
+        }
+    }
+
+    const level2to5Reward = async () =>{
+        let _reward = 0;
+        if(membership >= 2 && walletAddress){
+            if(membership == 4){
+                _reward = await getDiamondReward(walletAddress);
+                _reward = parseInt(reward)/2;
+            }else if(membership == 2){
+                _reward = await getDiamondReward(walletAddress);
+            }
+            setLevel25Reward(parseInt(_reward));
+        } else {
+            setLevel25Reward(0);
+        }
+    }
+
+    const level6to12Reward = async () =>{
+        let _reward = 0;
+        if(membership >= 3 && walletAddress){
+            if(membership == 4){
+                _reward = await getDiamondReward(walletAddress);
+                _reward = parseInt(reward)/2;
+            }else if(membership == 3){
+                _reward = await getDiamondReward(walletAddress);
+            }
+            setLevel612Reward(parseInt(_reward));
+        } else {
+            setLevel612Reward(0);
         }
     }
 
@@ -76,9 +122,9 @@ const WithdrawPage = () => {
                             <p className="py-1">1st Level Reward</p>
                             <p className="text-right py-1">${activeTeamReward/1e6 || 0} USDT</p>
                             <p className="py-1">2-5 Level Reward</p>
-                            <p className="text-right py-1">${activeTeamReward/1e6 || 0} USDT</p>
+                            <p className="text-right py-1">${level25Reward/1e6 || 0} USDT</p>
                             <p className="py-1">6-12 Level Reward</p>
-                            <p className="text-right py-1">${activeTeamReward/1e6 || 0} USDT</p>
+                            <p className="text-right py-1">${level612Reward/1e6 || 0} USDT</p>
                             <p className="py-1">Luck Reward for 1k</p>
                             <p className="text-right py-1">${reward?.more1k/1e6 || 0} USDT</p>
                             <p className="py-1">Withdraw</p>
@@ -87,8 +133,8 @@ const WithdrawPage = () => {
                             <p className="text-right py-1">30%</p>
                             <p className="py-1">Available withdrawal</p>
                             <p className="text-right py-1">
-                                ${(parseInt(reward?.capitals)+(cycleReward+activeTeamReward+
-                                parseInt(reward?.more1k)))/1e6 || 0} USDT</p>
+                                ${(reward?.capitals/1e6 + cycleReward/1e6 + activeTeamReward/1e6 + level25Reward/1e6
+                                + level612Reward/1e6 + reward?.more1k/1e6)|| 0} USDT</p>
                         </div>
                         {
                             (walletAddress.length === 0 || !isRegister) &&
