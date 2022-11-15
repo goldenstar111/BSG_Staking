@@ -5,18 +5,19 @@ import { CHAIN_ID, CONTRACT_ADDRESS, CONTRACT_ADDRESS_USDT, DEFAULT_REFERRAL } f
 import {
     connectWallet,
     getCurrentWalletConnected,
-    getUSDTBalance,
-    handleWalletBalance,
-    getReferral,
-    getUserInfo,
-    getRewardInfo,
-    getCurDay,
-    getFinalOrder,
     getIncomePoolforDiamond,
-    getIncomePoolfor1k,
     getIncomePoolforBooster,
+    getActiveDirectNumbers,
+    checkDiamondMembership,
+    handleWalletBalance,
+    getIncomePoolfor1k,
+    getUSDTBalance,
+    getFinalOrder,
+    getRewardInfo,
+    getUserInfo,
+    getReferral,
+    getCurDay,
     getMember,
-    getActiveDirectNumbers
 } from "../../components/interact";
 
 const HomePage = () => {
@@ -68,7 +69,8 @@ const HomePage = () => {
             let _4booster  =await getIncomePoolforBooster();
             setIncome4booster(_4booster);
             let _membership = await getMember(walletAddress);
-            setMembership(_membership);
+            let _diamondmembership = await checkDiamondMembership(walletAddress);
+            setMembership(_diamondmembership > 1 ? _diamondmembership : _membership);
             let _directNum = await getActiveDirectNumbers(walletAddress);
             setActiveDirectNum(_directNum);
             let _curday = await getCurDay();
@@ -111,6 +113,12 @@ const HomePage = () => {
             return "Normal"
         } else if (_membership == 1) {
             return "Booster"
+        } else if (_membership == 2) {
+            return "Diamond"
+        } else if (_membership == 3) {
+            return "Blue Diamond"
+        } else if (_membership == 4) {
+            return "Crown Diamond"
         }
     }
 

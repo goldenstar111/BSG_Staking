@@ -28,7 +28,7 @@ const parseRewardInfo = (hexdata) => {
   data.capitals = parseInt(hexdata.substring(2, 66), 16);
   data.statics = parseInt(hexdata.substring(67, 130), 16);
   data.directs = parseInt(hexdata.substring(131, 194), 16);
-  data.levelReleased = parseInt(hexdata.substring(195, 258), 16);
+  data.diamondLuckyReward = parseInt(hexdata.substring(195, 258), 16);
   data.infinityBonusReleased = parseInt(hexdata.substring(259, 322), 16);
   data.cycleNumber = parseInt(hexdata.substring(323, 386), 16);
   data.more1k = parseInt(hexdata.substring(387, 450), 16);

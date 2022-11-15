@@ -125,8 +125,10 @@ const WithdrawPage = () => {
                             <p className="text-right py-1">${level25Reward/1e6 || 0} USDT</p>
                             <p className="py-1">6-12 Level Reward</p>
                             <p className="text-right py-1">${level612Reward/1e6 || 0} USDT</p>
-                            <p className="py-1">Luck Reward for 1k</p>
+                            <p className="py-1">Lucky Reward for 1k</p>
                             <p className="text-right py-1">${reward?.more1k/1e6 || 0} USDT</p>
+                            <p className="py-1">Reward for every diamond first 5 Cycles</p>
+                            <p className="text-right py-1">${reward?.diamondLuckyReward/1e6 || 0} USDT</p>
                             <p className="py-1">Withdraw</p>
                             <p className="text-right py-1">70%</p>
                             <p className="py-1">Lock</p>
@@ -134,7 +136,7 @@ const WithdrawPage = () => {
                             <p className="py-1">Available withdrawal</p>
                             <p className="text-right py-1">
                                 ${(reward?.capitals/1e6 + cycleReward/1e6 + activeTeamReward/1e6 + level25Reward/1e6
-                                + level612Reward/1e6 + reward?.more1k/1e6)|| 0} USDT</p>
+                                + level612Reward/1e6 + reward?.more1k/1e6 + reward?.diamondLuckyReward/1e6)|| 0} USDT</p>
                         </div>
                         {
                             (walletAddress.length === 0 || !isRegister) &&
