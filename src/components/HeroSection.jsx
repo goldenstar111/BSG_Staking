@@ -1,10 +1,10 @@
 import images from '../constants/images';
 import Graph from '../assets/Graph';
 
-const HeroSection = ({ themeToggling, menuToggling, setMenuToggling }) => {
+const HeroSection = ({ themeToggling, menuToggling, setMenuToggle }) => {
 
   return (
-    <section className='px-4 lg:px-36 py-12 text-center dark:bg-[#2B1867] text-gray-700 dark:text-gray-200 relative overflow-hidden' onClick={() => setMenuToggling()}>
+    <section className='px-4 lg:px-36 py-12 text-center dark:bg-[#2B1867] text-gray-700 dark:text-gray-200 relative overflow-hidden' onClick={() => setMenuToggle()}>
 
       <div className={`hidden lg:block absolute top-[-160px] left-[350px] w-40 -z-0`}>
         <img src={themeToggling ? images.topLeft_1 : images.topLeft_1_w} alt="" className='w-full' />
